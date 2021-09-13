@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -89,11 +91,16 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    return when (n) {
-        1 -> 1
-        2 -> 1
-        else -> fib(n - 2) + fib(n - 1)
+    var first = 0
+    var second = 1
+    var local: Int
+    for (i in 1..n) {
+        local = second
+        second += first
+        first = local
+
     }
+    return first
 }
 
 /**
@@ -242,9 +249,17 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var seq = ""
-    for (i in 1..n) {
-        seq += fib(i).toString()
+    var digits = 0
+    var i = 1
+    while (n > digits) {
+        digits += digitNumber(fib(i))
+        i += 1
     }
-    return Character.getNumericValue(seq[n - 1])
+    val last = fib(i - 1)
+
+    return if (n == digits) {
+        last % 10
+    } else {
+        (last / 10.0.pow((digits - n).toDouble()) % 10).toInt()
+    }
 }

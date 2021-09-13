@@ -74,7 +74,13 @@ fun ageDescription(age: Int): String {
             return "$age лет"
         }
         val digit = age % 10
-        return if ((digit > 1) && (digit < 5)) "$age года" else if (digit == 1) "$age год" else "$age лет"
+        return if ((digit > 1) && (digit < 5)) {
+            "$age года"
+        } else if (digit == 1) {
+            "$age год"
+        } else {
+            "$age лет"
+        }
     } else return "error"
 }
 
@@ -140,8 +146,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return if ((c <= b) && (a <= c) && (b <= d)) {
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+    if ((c <= b) && (a <= c) && (b <= d)) {
         b - c
     } else if ((a <= d) && (c <= a) && (d <= b)) {
         d - a
@@ -150,4 +156,4 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     } else if ((c <= a) && (d >= b)) {
         b - a
     } else -1
-}
+
