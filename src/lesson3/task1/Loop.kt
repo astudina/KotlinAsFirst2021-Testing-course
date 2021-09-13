@@ -72,7 +72,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var count = 1
+    var num = n
+    while (num / 10 != 0) {
+        num /= 10
+        count += 1
+    }
+    return count
+}
 
 /**
  * Простая (2 балла)
@@ -93,14 +101,26 @@ fun fib(n: Int): Int {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var i = 2
+    while (n % i != 0) {
+        i += 1
+    }
+    return i
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var i = n - 1
+    while (n % i != 0) {
+        i -= 1
+    }
+    return i
+}
 
 /**
  * Простая (2 балла)
@@ -118,7 +138,19 @@ fun maxDivisor(n: Int): Int = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var num = x
+    var count = 0
+    while (num != 1) {
+        num = if (x % 2 == 0) {
+            num / 2
+        } else {
+            3 * num + 1
+        }
+        count += 1
+    }
+    return count
+}
 
 /**
  * Средняя (3 балла)
