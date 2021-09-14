@@ -237,7 +237,21 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var digits = 0
+    var i = 1
+    while (n > digits) {
+        digits += digitNumber(i * i)
+        i += 1
+    }
+    val last = (i - 1) * (i - 1)
+
+    return if (n == digits) {
+        last % 10
+    } else {
+        (last / 10.0.pow((digits - n).toDouble()) % 10).toInt()
+    }
+}
 
 /**
  * Сложная (5 баллов)
