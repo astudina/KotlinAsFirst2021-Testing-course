@@ -93,9 +93,8 @@ fun digitNumber(n: Int): Int {
 fun fib(n: Int): Int {
     var first = 0
     var second = 1
-    var local: Int
     for (i in 1..n) {
-        local = second
+        val local = second
         second += first
         first = local
 
@@ -110,10 +109,11 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var i = 2
-    while (n % i != 0) {
+    while (i * i <= n) {
+        if (n % i == 0) return i
         i += 1
     }
-    return i
+    return n
 }
 
 /**
@@ -123,10 +123,11 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var i = n - 1
-    while (n % i != 0) {
+    while (i * i >= n) {
+        if (n % i == 0) return i
         i -= 1
     }
-    return i
+    return 1
 }
 
 /**
