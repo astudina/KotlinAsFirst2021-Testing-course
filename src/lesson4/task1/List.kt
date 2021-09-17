@@ -120,7 +120,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
 
 /**
  * Простая (2 балла)
@@ -241,7 +241,14 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    val one = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
+    val ten = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
+    val hun = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
+    val tho = listOf("", "M", "MM", "MMM")
+    val text = tho[n / 1000] + hun[n / 100 % 10] + ten[n / 10 % 10] + one[n % 10]
+    return text
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -250,4 +257,53 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val wordThousand = listOf("тысяча ", "тысячи ", "тысяч ")
+    val exceptions = listOf("надцать ", "один", "две", "три", "четыр", "пят", "шест", "сем", "восем", "девят")
+    val thousand = listOf("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val one = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val ten = listOf(
+        "",
+        "десять ",
+        "двадцать ",
+        "тридцать ",
+        "сорок ",
+        "пятьдесят ",
+        "шестьдесят ",
+        "семьдесят ",
+        "восемьдесят ",
+        "девяносто "
+    )
+    val hundred = listOf(
+        "",
+        "сто ",
+        "двести ",
+        "триста ",
+        "четыреста ",
+        "пятьсот ",
+        "шестьсот ",
+        "семьсот ",
+        "восемьсот ",
+        "девятьсот "
+    )
+    var text = ""
+
+    if (n > 1000) {
+        text += if (n / 1000 % 100 in 11..19) {
+            hundred[n / 100000] + exceptions[n / 1000 % 10] + exceptions[0] + wordThousand[2]
+        } else {
+            hundred[n / 100000] + ten[n / 10000 % 10] + thousand[n / 1000 % 10] + when (n / 1000 % 10) {
+                1 -> wordThousand[0]
+                in 2..4 -> wordThousand[1]
+                else -> wordThousand[2]
+            }
+        }
+    }
+
+    text += if (n % 100 in 11..19) {
+        hundred[n / 100 % 10] + exceptions[n % 10] + exceptions[0]
+    } else {
+        hundred[n / 100 % 10] + ten[n / 10 % 10] + one[n % 10]
+    }
+    return text.trim()
+}
