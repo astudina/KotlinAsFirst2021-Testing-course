@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.sqrt
+import kotlin.reflect.typeOf
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -246,8 +247,7 @@ fun roman(n: Int): String {
     val ten = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
     val hun = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
     val tho = listOf("", "M", "MM", "MMM")
-    val text = tho[n / 1000] + hun[n / 100 % 10] + ten[n / 10 % 10] + one[n % 10]
-    return text
+    return tho[n / 1000] + hun[n / 100 % 10] + ten[n / 10 % 10] + one[n % 10]
 }
 
 /**
@@ -286,24 +286,27 @@ fun russian(n: Int): String {
         "восемьсот ",
         "девятьсот "
     )
-    var text = ""
+    val text = StringBuilder()
+
+
 
     if (n > 1000) {
-        text += if (n / 1000 % 100 in 11..19) {
-            hundred[n / 100000] + exceptions[n / 1000 % 10] + exceptions[0] + wordThousand[2]
+        if (n / 1000 % 100 in 11..19) {
+            text.append(hundred[n / 100000], exceptions[n / 1000 % 10], exceptions[0], wordThousand[2])
         } else {
-            hundred[n / 100000] + ten[n / 10000 % 10] + thousand[n / 1000 % 10] + when (n / 1000 % 10) {
-                1 -> wordThousand[0]
-                in 2..4 -> wordThousand[1]
-                else -> wordThousand[2]
+            text.append(hundred[n / 100000], ten[n / 10000 % 10], thousand[n / 1000 % 10])
+            when (n / 1000 % 10) {
+                1 -> text.append(wordThousand[0])
+                in 2..4 -> text.append(wordThousand[1])
+                else -> text.append(wordThousand[2])
             }
         }
     }
 
-    text += if (n % 100 in 11..19) {
-        hundred[n / 100 % 10] + exceptions[n % 10] + exceptions[0]
+    if (n % 100 in 11..19) {
+        text.append(hundred[n / 100 % 10], exceptions[n % 10], exceptions[0])
     } else {
-        hundred[n / 100 % 10] + ten[n / 10 % 10] + one[n % 10]
+        text.append(hundred[n / 100 % 10], ten[n / 10 % 10], one[n % 10])
     }
-    return text.trim()
+    return text.toString().trim()
 }
