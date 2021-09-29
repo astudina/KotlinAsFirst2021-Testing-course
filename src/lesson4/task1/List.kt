@@ -4,7 +4,6 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.sqrt
-import kotlin.reflect.typeOf
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -259,9 +258,42 @@ fun roman(n: Int): String {
  */
 fun russian(n: Int): String {
     val wordThousand = listOf("тысяча ", "тысячи ", "тысяч ")
-    val exceptions = listOf("надцать ", "один", "две", "три", "четыр", "пят", "шест", "сем", "восем", "девят")
-    val thousand = listOf("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
-    val one = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val exceptions = listOf(
+        "",
+        "одиннадцать ",
+        "двенадцать ",
+        "тринадцать ",
+        "четырнадцать ",
+        "пятнадцать ",
+        "шестнадцать ",
+        "семнадцать ",
+        "восемнадцать ",
+        "девятнадцать "
+    )
+    val thousand = listOf(
+        "",
+        "одна ",
+        "две ",
+        "три ",
+        "четыре ",
+        "пять ",
+        "шесть ",
+        "семь ",
+        "восемь ",
+        "девять "
+    )
+    val one = listOf(
+        "",
+        "один",
+        "два",
+        "три",
+        "четыре",
+        "пять",
+        "шесть",
+        "семь",
+        "восемь",
+        "девять"
+    )
     val ten = listOf(
         "",
         "десять ",
@@ -286,27 +318,27 @@ fun russian(n: Int): String {
         "восемьсот ",
         "девятьсот "
     )
-    val text = StringBuilder()
 
-
-
-    if (n > 1000) {
-        if (n / 1000 % 100 in 11..19) {
-            text.append(hundred[n / 100000], exceptions[n / 1000 % 10], exceptions[0], wordThousand[2])
-        } else {
-            text.append(hundred[n / 100000], ten[n / 10000 % 10], thousand[n / 1000 % 10])
-            when (n / 1000 % 10) {
-                1 -> text.append(wordThousand[0])
-                in 2..4 -> text.append(wordThousand[1])
-                else -> text.append(wordThousand[2])
+    val text = buildString {
+        if (n > 1000) {
+            append(hundred[n / 100000])
+            if (n / 1000 % 100 in 11..19) {
+                append(exceptions[n / 1000 % 10], wordThousand[2])
+            } else {
+                append(ten[n / 10000 % 10], thousand[n / 1000 % 10])
+                when (n / 1000 % 10) {
+                    1 -> append(wordThousand[0])
+                    in 2..4 -> append(wordThousand[1])
+                    else -> append(wordThousand[2])
+                }
             }
+        }
+        if (n % 100 in 11..19) {
+            append(hundred[n / 100 % 10], exceptions[n % 10])
+        } else {
+            append(hundred[n / 100 % 10], ten[n / 10 % 10], one[n % 10])
         }
     }
 
-    if (n % 100 in 11..19) {
-        text.append(hundred[n / 100 % 10], exceptions[n % 10], exceptions[0])
-    } else {
-        text.append(hundred[n / 100 % 10], ten[n / 10 % 10], one[n % 10])
-    }
-    return text.toString().trim()
+    return text.trim()
 }
