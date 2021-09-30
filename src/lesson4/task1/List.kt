@@ -319,7 +319,7 @@ fun russian(n: Int): String {
         "девятьсот "
     )
 
-    val text = buildString {
+    return buildString {
         if (n > 1000) {
             append(hundred[n / 100000])
             if (n / 1000 % 100 in 11..19) {
@@ -338,7 +338,5 @@ fun russian(n: Int): String {
         } else {
             append(hundred[n / 100 % 10], ten[n / 10 % 10], one[n % 10])
         }
-    }
-
-    return text.trim()
+    }.trim()
 }
