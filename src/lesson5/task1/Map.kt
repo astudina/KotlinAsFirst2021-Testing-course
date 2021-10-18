@@ -165,7 +165,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     var res = mapB + mapA
     for ((name, number) in res) {
-        if ((number !in mapB[name].toString()) && (name in mapB)) {
+        if ((number != mapB[name].toString()) && (name in mapB)) {
+            println("$name, ${mapB[name]}, $res")
             res += name to listOf(number, mapB[name]).joinToString()
         }
     }
