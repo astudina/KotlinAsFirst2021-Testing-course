@@ -253,7 +253,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
 fun hasAnagrams(words: List<String>): Boolean =
     words.any { word ->
         (words - word).any {
-            (it.length == word.length) && (canBuildFrom(it.toList(), word) && (it != word))
+            (it.length == word.length) && (canBuildFrom(it.toList(), word))
         }
     }
 
