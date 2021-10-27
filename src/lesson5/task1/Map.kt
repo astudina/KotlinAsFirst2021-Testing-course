@@ -125,7 +125,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all 
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    val res = a.filter { a[it.key] != b[it.key] }
+    val res = a.filter { it.value != b[it.key] }
     a.clear()
     a.putAll(res)
 }
@@ -138,7 +138,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяющихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it in b }.toSet().toList()
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().filter { it in b.toSet() }
 
 /**
  * Средняя (3 балла)
@@ -160,8 +160,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     var res = mapB + mapA
     for ((name, number) in res) {
-        if ((number != mapB[name].toString()) && (name in mapB)) {
-            res += name to listOf(number, mapB[name]).joinToString()
+        if ((number != mapB[name]) && (name in mapB)) {
+            res += name to "$number, ${mapB[name]}"
         }
     }
     return res
@@ -216,7 +216,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean =
-    word.lowercase().all { letter -> letter.toString() in chars.map { it.lowercase() } }
+    word.lowercase().all { letter -> letter in chars.map { it.lowercaseChar() } }
 
 /**
  * Средняя (4 балла)
@@ -231,11 +231,12 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean =
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val rep = mutableMapOf<String, Int>()
-    for (letter in list) if (list.count { it == letter } != 1) {
-        rep += letter to list.count { it == letter }
+    val repeats = mutableMapOf<String, Int>()
+    for (letter in list) {
+        val count = list.count { it == letter }
+        if (count != 1) repeats += letter to count
     }
-    return rep
+    return repeats
 }
 
 /**
@@ -252,10 +253,11 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  */
 fun hasAnagrams(words: List<String>): Boolean =
     words.any { word ->
-        (words - word).any {
+        (words.subList(words.indexOf(word) + 1, words.size)).any {
             (it.length == word.length) && (canBuildFrom(it.toList(), word))
         }
     }
+
 
 /**
  * Сложная (5 баллов)
@@ -310,7 +312,14 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    for (num in list) {
+        for (num2 in list.subList(list.indexOf(num) + 1, list.size)) {
+            if (num + num2 == number) return list.indexOf(num) to list.indexOf(num2)
+        }
+    }
+    return -1 to -1
+}
 
 /**
  * Очень сложная (8 баллов)
@@ -334,3 +343,17 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  *   ) -> emptySet()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+/*
+{
+    var bag: Set<String>
+    for (item in treasures) {
+        val cost = item.value.second
+        val weight = item.value.first
+        var current = 0
+        while (weight + current <= capacity) {
+
+        }
+    }
+    return setOf("Кубок")
+}
+*/
