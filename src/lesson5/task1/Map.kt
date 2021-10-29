@@ -138,7 +138,10 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяющихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().filter { it in b.toSet() }
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
+    val bSet = b.toSet()
+    return a.toSet().filter { it in bSet }
+}
 
 /**
  * Средняя (3 балла)
@@ -178,9 +181,6 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
-/*  println(stockPrices.filter { it.first == "MSFT" }.reduce { prev, elem -> "MSFT" to (prev.second + elem.second) })
-    return stockPrices.toMap()*/
-
 
 /**
  * Средняя (4 балла)
@@ -198,12 +198,13 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    var chosen = "" to Double.MAX_VALUE
     for ((name, pair) in stuff) {
-        if (stuff.all { (it.value.second >= pair.second) && (it.value.first == kind) }) {
-            return name
+        if ((pair.first == kind) && (pair.second < chosen.second)) {
+            chosen = name to pair.second
         }
     }
-    return null
+    return if (chosen.second != Double.MAX_VALUE) chosen.first else null
 }
 
 /**
@@ -232,7 +233,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean =
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val repeats = mutableMapOf<String, Int>()
-    for (letter in list) {
+    for (letter in list.toSet()) {
         val count = list.count { it == letter }
         if (count != 1) repeats += letter to count
     }
