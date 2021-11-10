@@ -125,9 +125,8 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all 
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    val res = a.filter { it.value != b[it.key] }
-    a.clear()
-    a.putAll(res)
+    val res = a.filter { it.value == b[it.key] }
+    res.map { a.remove(it.key) }
 }
 
 
@@ -217,7 +216,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean =
-    word.lowercase().all { letter -> letter in chars.map { it.lowercaseChar() } }
+    word.lowercase().toSet().all { letter -> letter in chars.map { it.lowercaseChar() } }
 
 /**
  * Средняя (4 балла)
@@ -314,10 +313,10 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    for (num in list) {
-        for (num2 in list.subList(list.indexOf(num) + 1, list.size)) {
-            if (num + num2 == number) return list.indexOf(num) to list.indexOf(num2)
-        }
+    val index = mutableMapOf<Int, Int>()
+    for (i in list.indices) {
+        if (number - list[i] in index) return index[number - list[i]]!! to i
+        index += list[i] to i
     }
     return -1 to -1
 }
