@@ -74,7 +74,38 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    if (str.count { it == ' ' } != 2) return ""
+    val list = str.split(' ')
+    val day = list[0].toInt()
+    var month = list[1]
+    val year = list[2].toInt()
+    val months = mapOf(
+        "января" to "01",
+        "февраля" to "02",
+        "марта" to "03",
+        "апреля" to "04",
+        "мая" to "05",
+        "июня" to "06",
+        "июля" to "07",
+        "августа" to "08",
+        "сентября" to "09",
+        "октября" to "10",
+        "ноября" to "11",
+        "декабря" to "12"
+    )
+    if (month !in months) return "" else month = months[month].toString()
+    return if (isDayCorrect(day, month.toInt(), year))
+        String.format("%02d.%s.%d", day, month, year) else ""
+}
+
+fun isDayCorrect(day: Int, month: Int, year: Int): Boolean {
+    val limits = mutableMapOf<Int, Int>()
+    for (i in listOf(1, 3, 5, 7, 8, 10, 12)) limits += i to 31
+    for (i in listOf(4, 6, 9, 11)) limits += i to 30
+    limits += if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) 2 to 29 else 2 to 28
+    return day <= limits[month]!!
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +117,28 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    if (digital.count { it == '.' } != 2) return ""
+    val (day, month, year) = digital.split('.')
+    val months = mapOf(
+        "01" to "января",
+        "02" to "февраля",
+        "03" to "марта",
+        "04" to "апреля",
+        "05" to "мая",
+        "06" to "июня",
+        "07" to "июля",
+        "08" to "августа",
+        "09" to "сентября",
+        "10" to "октября",
+        "11" to "ноября",
+        "12" to "декабря"
+    )
+    if (month !in months) return ""
+    return if (isDayCorrect(day.toInt(), month.toInt(), year.toInt()))
+        "${day.toInt()} ${months[month].toString()} $year" else ""
+}
+
 
 /**
  * Средняя (4 балла)
@@ -102,7 +154,12 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val cor = "1234567890()+- "
+    val local = phone.filter { it !in " -" }
+    if (local.any { it !in cor || (it == '(' && !local[local.indexOf(it) + 1].isDigit()) }) return ""
+    return local.filter { it.isDigit() || it == '+' }
+}
 
 /**
  * Средняя (5 баллов)
