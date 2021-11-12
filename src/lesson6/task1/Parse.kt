@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import java.lang.IllegalArgumentException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -193,9 +195,23 @@ fun bestHighJump(jumps: String): Int = TODO()
  * использующее целые положительные числа, плюсы и минусы, разделённые пробелами.
  * Наличие двух знаков подряд "13 + + 10" или двух чисел подряд "1 2" не допускается.
  * Вернуть значение выражения (6 для примера).
- * Про нарушении формата входной строки бросить исключение IllegalArgumentException
+ * При нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    if (expression.contains(Regex("[+-] [+-]|[0-9] [0-9]|^[+-]")))
+        throw IllegalArgumentException()
+    val stripped = expression.filter { it != ' ' }
+    val numbers = Regex("[-+]").split(stripped)
+    val move = stripped.filter { it in "-+" }.toList()
+    var total = numbers[0].toInt()
+    for (m in move.indices) {
+        when (move[m]) {
+            '+' -> total += numbers[m + 1].toInt()
+            '-' -> total -= numbers[m + 1].toInt()
+        }
+    }
+    return total
+}
 
 /**
  * Сложная (6 баллов)
