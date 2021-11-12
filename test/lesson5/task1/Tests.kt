@@ -227,6 +227,13 @@ class Tests {
                 "печенье"
             )
         )
+        assertEquals(
+            "Мария",
+            findCheapestStuff(
+                mapOf("Мария" to ("печенье" to Double.MAX_VALUE), "Орео" to ("печенье" to Double.MAX_VALUE)),
+                "печенье"
+            )
+        )
     }
 
     @Test
