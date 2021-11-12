@@ -77,7 +77,7 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    if (str.count { it == ' ' } != 2) return ""
+    if (!str.matches(Regex("""\d+ ([а-я])+ \d+"""))) return ""
     val list = str.split(' ')
     val day = list[0].toInt()
     var month = list[1]
@@ -106,7 +106,7 @@ fun isDayCorrect(day: Int, month: Int, year: Int): Boolean {
     for (i in listOf(1, 3, 5, 7, 8, 10, 12)) limits += i to 31
     for (i in listOf(4, 6, 9, 11)) limits += i to 30
     limits += if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) 2 to 29 else 2 to 28
-    return day <= limits[month]!!
+    return day in 1..limits[month]!!
 }
 
 /**
@@ -120,7 +120,7 @@ fun isDayCorrect(day: Int, month: Int, year: Int): Boolean {
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String {
-    if (digital.count { it == '.' } != 2) return ""
+    if (!digital.matches(Regex("""\d+\.\d+\.\d+"""))) return ""
     val (day, month, year) = digital.split('.')
     val months = mapOf(
         "01" to "января",
@@ -198,7 +198,7 @@ fun bestHighJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    if (expression.contains(Regex("[+-] [+-]|[0-9] [0-9]|^[+-]")))
+    if (expression.contains(Regex("""[+-] [+-]|\d \d|^[+-]""")))
         throw IllegalArgumentException()
     val stripped = expression.filter { it != ' ' }
     val numbers = Regex("[-+]").split(stripped)
