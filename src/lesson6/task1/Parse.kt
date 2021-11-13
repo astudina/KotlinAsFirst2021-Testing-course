@@ -2,7 +2,9 @@
 
 package lesson6.task1
 
+import ru.spbstu.wheels.stack
 import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -222,7 +224,10 @@ fun plusMinus(expression: String): Int {
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val index = Regex("""([а-я]+) \1""").find(str.lowercase())
+    return index?.range?.first ?: -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -286,4 +291,45 @@ fun fromRoman(roman: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
+    val localList = mutableListOf<Pair<Int, Int>>()
+    val mapBr = mutableMapOf<Int, Int>()
+    val stackBr = stack<Char>()
+    //Brackets check
+    if (commands.any { it !in "<>+-[] " }) throw IllegalArgumentException()
+    for ((index, char) in commands.withIndex()) {
+        if (char == '[') {
+            stackBr.push(char)
+            localList += index to -1
+        }
+        if (char == ']') {
+            if (stackBr.isEmpty()) throw IllegalArgumentException()
+            stackBr.pop()
+            mapBr += localList.last().first to index
+            localList.remove(localList.last())
+        }
+    }
+    if (!stackBr.isEmpty()) throw IllegalArgumentException()
+
+    var lim = limit
+    val line = mutableListOf<Int>()
+    var cart = cells / 2
+    for (i in 1..cells) line += 0
+    var index = 0
+    //Moves
+    while ((index < commands.length) && (lim != 0)) {
+        if ((cart > cells - 1) || (cart < 0)) throw IllegalStateException()
+
+        when (commands[index]) {
+            '>' -> cart++
+            '<' -> cart--
+            '+' -> line[cart]++
+            '-' -> line[cart]--
+            '[' -> if (line[cart] == 0) index = mapBr[index]!!
+            ']' -> if (line[cart] != 0) index = mapBr.filter { it.value == index }.keys.last()
+        }
+        index++
+        lim--
+    }
+    return line
+}
