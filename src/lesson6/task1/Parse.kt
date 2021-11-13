@@ -226,7 +226,7 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val index = Regex("""([a-zа-я]+) \1""").find(str.lowercase())
+    val index = Regex("""([!-я]+) \1""").find(str.lowercase())
     return index?.range?.first ?: -1
 }
 
@@ -319,8 +319,6 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     var index = 0
     //Moves
     while ((index < commands.length) && (lim != 0)) {
-        if ((cart > cells - 1) || (cart < 0)) throw IllegalStateException()
-
         when (commands[index]) {
             '>' -> cart++
             '<' -> cart--
@@ -331,6 +329,7 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
         }
         index++
         lim--
+        if ((cart > cells - 1) || (cart < 0)) throw IllegalStateException()
     }
     return line
 }
