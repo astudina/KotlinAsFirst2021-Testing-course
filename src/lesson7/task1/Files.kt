@@ -233,7 +233,19 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    val words = File(inputName).readLines()
+    val chosen = mutableListOf("")
+    for (w in words) {
+        val wLow = w.lowercase()
+        if (wLow.all { char -> wLow.count { it == char } == 1 }) {
+            if (w.length == chosen[0].length) chosen += w
+            if (w.length > chosen[0].length) {
+                chosen.clear()
+                chosen += w
+            }
+        }
+    }
+    File(outputName).bufferedWriter().use { it.write(chosen.joinToString()) }
 }
 
 /**
@@ -282,7 +294,22 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    val textList = File(inputName).readLines().toMutableList()
+    for (i in textList.indices) if (textList[i] == "") textList[i] = "</p>\n<p>"
+    var text = "<html>\n<body>\n<p>\n" + textList.joinToString("\n") + "\n</p>\n</body>\n</html>"
+    text = formatHtml(text, "**", "<b>", "</b>")
+    text = formatHtml(text, "*", "<i>", "</i>")
+    text = formatHtml(text, "~~", "<s>", "</s>")
+    File(outputName).bufferedWriter().use { it.write(text) }
+}
+
+fun formatHtml(text: String, old: String, pre: String, post: String): String {
+    var result = text
+    while (old in result) {
+        result = result.replaceFirst(old, pre)
+        result = result.replaceFirst(old, post)
+    }
+    return result
 }
 
 /**
