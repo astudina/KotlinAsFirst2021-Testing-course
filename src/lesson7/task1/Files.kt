@@ -452,7 +452,8 @@ fun markdownToHtml(inputName: String, outputName: String) {
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
     File(outputName).bufferedWriter().use { file ->
-        val len = lhv.toString().length + rhv.toString().length
+        //val len = lhv.toString().length + rhv.toString().length
+        val len = (lhv * rhv).toString().length + 1
         file.write(String.format("%${len}d\n*%${len - 1}d\n", lhv, rhv))
         for (i in 1..len) file.write("-")
         file.write(String.format("\n%${len}d\n", lhv * (rhv % 10)))
