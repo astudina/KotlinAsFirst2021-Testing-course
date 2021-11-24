@@ -296,7 +296,7 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val textList = File(inputName).readLines().toMutableList()
     for (i in textList.indices) if (textList[i] == "") textList[i] = "</p>\n<p>"
-    var text = "<html>\n<body>\n<p>\n" + textList.joinToString("\n") + "\n</p>\n</body>\n</html>"
+    var text = "<html>\n<body>\n<p>\n${textList.joinToString("\n")}\n</p>\n</body>\n</html>"
     text = formatHtml(text, "**", "<b>", "</b>")
     text = formatHtml(text, "*", "<i>", "</i>")
     text = formatHtml(text, "~~", "<s>", "</s>")
@@ -451,7 +451,19 @@ fun markdownToHtml(inputName: String, outputName: String) {
  *
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    File(outputName).bufferedWriter().use { file ->
+        val len = lhv.toString().length + rhv.toString().length
+        file.write(String.format("%${len}d\n*%${len - 1}d\n", lhv, rhv))
+        for (i in 1..len) file.write("-")
+        file.write(String.format("\n%${len}d\n", lhv * (rhv % 10)))
+        if (rhv / 10 != 0) {
+            for ((index, num) in (rhv / 10).toString().reversed().withIndex()) {
+                file.write(String.format("+%${len - index - 2}d\n", (lhv * num.toString().toInt())))
+            }
+        }
+        for (i in 1..len) file.write("-")
+        file.write(String.format("\n%${len}d", lhv * rhv))
+    }
 }
 
 
