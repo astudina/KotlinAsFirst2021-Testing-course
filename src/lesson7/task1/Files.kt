@@ -233,9 +233,8 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    val words = File(inputName).readLines()
     val chosen = mutableListOf("")
-    for (w in words) {
+    File(inputName).forEachLine { w ->
         val wLow = w.lowercase()
         if (wLow.all { char -> wLow.count { it == char } == 1 }) {
             if (w.length == chosen[0].length) chosen += w
@@ -489,6 +488,41 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    File(outputName).bufferedWriter().use { file ->
+        val lStr = lhv.toString()
+        val lLen = lStr.length
+        val res = (lhv / rhv).toString().toList().map { it.digitToInt() }
+        var loc = rhv * res[0]
+        file.write(" $lhv | $rhv\n")
+        file.write(String.format("-%-${lLen}d   ${lhv / rhv}\n", loc))
+        for (i in '-' + (loc).toString()) file.write("-")
+        file.write(
+            String.format(
+                "\n%${('-' + (loc).toString()).length}d",
+                lStr.substring(0, (loc).toString().length).toInt() - loc
+            )
+        )
+        for ((index, num) in res.withIndex()) {
+            if (index == 0) continue
+            val locLen = (loc).toString().length
+            val locRem = (lStr.substring(0, locLen + 1).toInt() - loc * 10).toString()
+            //           (lStr.substring(0, locLen).toInt() - loc).toString() + lStr[locLen]
+            file.write("${lStr[locLen]}\n")
+            file.write(String.format("%${locLen + 2}s\n", "-" + rhv * num))
+            val line = genString("-", maxOf(locRem.lastIndex, ("-" + rhv * num).lastIndex))
+            file.write(String.format("%${locLen + 2}s\n", line))
+            //for (i in 0 until locLen + 2 - locRem.length) file.write(" ")
+            //for (i in locRem) file.write("-")
+            file.write(String.format("%${locLen + 2}s", locRem.toInt() - rhv * num))
+            loc = loc * 10 + rhv * num
+        }
+    }
 }
 
+fun genString(pat: String, len: Int): String {
+    var str = ""
+    for (i in 0..len) {
+        str += pat
+    }
+    return str
+}
