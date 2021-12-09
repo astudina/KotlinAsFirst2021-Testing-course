@@ -294,9 +294,12 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val textList = mutableListOf<String>()
+    var prev = "a"
     File(inputName).forEachLine { line ->
-        textList += if (line == "") "</p>\n<p>"
-        else line
+        if (line == "") {
+            if (prev != "") textList += "</p>\n<p>"
+        } else textList += line
+        prev = line
     }
     var text = "<html>\n<body>\n<p>\n${textList.joinToString("\n")}\n</p>\n</body>\n</html>"
     text = formatHtml(text, "**", "<b>", "</b>")
