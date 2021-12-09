@@ -499,6 +499,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         val lLen = lStr.length
         val res = digits(lhv / rhv)
         var loc = rhv * res[0]
+
         if (lhv < rhv && lhv !in 0..9) {
             file.write("$lhv | $rhv\n")
             file.write(String.format("%${lLen}s   ${lhv / rhv}\n", "-$loc"))
