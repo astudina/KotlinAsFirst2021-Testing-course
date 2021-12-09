@@ -491,7 +491,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     File(outputName).bufferedWriter().use { file ->
         val lStr = lhv.toString()
         val lLen = lStr.length
-        val res = (lhv / rhv).toString().toList().map { it.digitToInt() }
+        val res = digits(lhv / rhv)
         var loc = rhv * res[0]
         file.write(" $lhv | $rhv\n")
         file.write(String.format("-%-${lLen}d   ${lhv / rhv}\n", loc))
@@ -506,13 +506,10 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
             if (index == 0) continue
             val locLen = (loc).toString().length
             val locRem = (lStr.substring(0, locLen + 1).toInt() - loc * 10).toString()
-            //           (lStr.substring(0, locLen).toInt() - loc).toString() + lStr[locLen]
             file.write("${lStr[locLen]}\n")
             file.write(String.format("%${locLen + 2}s\n", "-" + rhv * num))
             val line = genString("-", maxOf(locRem.lastIndex, ("-" + rhv * num).lastIndex))
             file.write(String.format("%${locLen + 2}s\n", line))
-            //for (i in 0 until locLen + 2 - locRem.length) file.write(" ")
-            //for (i in locRem) file.write("-")
             file.write(String.format("%${locLen + 2}s", locRem.toInt() - rhv * num))
             loc = loc * 10 + rhv * num
         }
@@ -525,4 +522,14 @@ fun genString(pat: String, len: Int): String {
         str += pat
     }
     return str
+}
+
+fun digits(num: Int): List<Int> {
+    val list = mutableListOf<Int>()
+    var loc = num
+    do {
+        list += loc % 10
+        loc /= 10
+    } while (loc != 0)
+    return list.reversed()
 }
