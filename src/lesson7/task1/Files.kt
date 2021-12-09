@@ -293,8 +293,11 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val textList = File(inputName).readLines().toMutableList()
-    for (i in textList.indices) if (textList[i] == "") textList[i] = "</p>\n<p>"
+    val textList = mutableListOf<String>()
+    File(inputName).forEachLine { line ->
+        textList += if (line == "") "</p>\n<p>"
+        else line
+    }
     var text = "<html>\n<body>\n<p>\n${textList.joinToString("\n")}\n</p>\n</body>\n</html>"
     text = formatHtml(text, "**", "<b>", "</b>")
     text = formatHtml(text, "*", "<i>", "</i>")
@@ -493,25 +496,31 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         val lLen = lStr.length
         val res = digits(lhv / rhv)
         var loc = rhv * res[0]
-        file.write(" $lhv | $rhv\n")
-        file.write(String.format("-%-${lLen}d   ${lhv / rhv}\n", loc))
-        for (i in '-' + (loc).toString()) file.write("-")
-        file.write(
-            String.format(
-                "\n%${('-' + (loc).toString()).length}d",
-                lStr.substring(0, (loc).toString().length).toInt() - loc
+        if (lhv < rhv && lhv !in 0..9) {
+            file.write("$lhv | $rhv\n")
+            file.write(String.format("%${lLen}s   ${lhv / rhv}\n", "-$loc"))
+            file.write("${genString("-", lLen - 1)}\n$lhv")
+        } else {
+            file.write(" $lhv | $rhv\n")
+            file.write(String.format("-%-${lLen}d   ${lhv / rhv}\n", loc))
+            for (i in "-$loc") file.write("-")
+            file.write(
+                String.format(
+                    "\n%${('-' + (loc).toString()).length}d",
+                    lStr.substring(0, (loc).toString().length).toInt() - loc
+                )
             )
-        )
-        for ((index, num) in res.withIndex()) {
-            if (index == 0) continue
-            val locLen = (loc).toString().length
-            val locRem = (lStr.substring(0, locLen + 1).toInt() - loc * 10).toString()
-            file.write("${lStr[locLen]}\n")
-            file.write(String.format("%${locLen + 2}s\n", "-" + rhv * num))
-            val line = genString("-", maxOf(locRem.lastIndex, ("-" + rhv * num).lastIndex))
-            file.write(String.format("%${locLen + 2}s\n", line))
-            file.write(String.format("%${locLen + 2}s", locRem.toInt() - rhv * num))
-            loc = loc * 10 + rhv * num
+            for ((index, num) in res.withIndex()) {
+                if (index == 0) continue
+                val locLen = (loc).toString().length
+                val locRem = (lStr.substring(0, locLen + 1).toInt() - loc * 10).toString()
+                file.write("${lStr[locLen]}\n")
+                file.write(String.format("%${locLen + 2}s\n", "-" + rhv * num))
+                val line = genString("-", maxOf(locRem.lastIndex, ("-" + rhv * num).lastIndex))
+                file.write(String.format("%${locLen + 2}s\n", line))
+                file.write(String.format("%${locLen + 2}s", locRem.toInt() - rhv * num))
+                loc = loc * 10 + rhv * num
+            }
         }
     }
 }
