@@ -301,7 +301,6 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         } else textList += line
         prev = line
     }
-
     var text = "<html>\n<body>\n<p>\n${textList.joinToString("\n")}\n</p>\n</body>\n</html>"
     text = formatHtml(text, "**", "<b>", "</b>")
     text = formatHtml(text, "*", "<i>", "</i>")
