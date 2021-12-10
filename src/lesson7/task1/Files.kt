@@ -294,7 +294,7 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val textList = mutableListOf<String>()
-    var prev = "a"
+    var prev = ""
     File(inputName).forEachLine { line ->
         if (line.isBlank()) {
             if (prev.isNotBlank()) textList += "</p>\n<p>"
