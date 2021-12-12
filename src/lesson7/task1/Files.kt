@@ -149,7 +149,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     var len = 0
     File(inputName).forEachLine { line ->
         lines += if (line.isNotBlank()) {
-            val loc = line.split(Regex("""\s+"""))
+            val loc = line.split(Regex(""" +"""))
             loc.subList(1, loc.size)
         } else listOf("")
         val loc = lines.last().joinToString(" ").length
@@ -328,7 +328,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         } else textList += line
         prev = line
     }
-    if (textList.last() == "</p>\n<p>") textList.removeLast()
+    if (textList.isNotEmpty() && textList.last() == "</p>\n<p>") textList.removeLast()
 
     var text = "<html>\n<body>\n<p>\n${textList.joinToString("\n")}\n</p>\n</body>\n</html>"
     text = formatHtml(text, "**", "<b>", "</b>")
