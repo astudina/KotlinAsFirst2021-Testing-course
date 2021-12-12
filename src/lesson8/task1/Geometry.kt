@@ -3,6 +3,7 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
+import java.lang.IllegalArgumentException
 import kotlin.math.*
 import kotlin.time.measureTime
 
@@ -113,6 +114,7 @@ data class Segment(val begin: Point, val end: Point) {
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
 fun diameter(vararg points: Point): Segment {
+    if (points.size < 2) throw IllegalArgumentException()
     var first = Point(0.0, 0.0)
     var second = Point(0.0, 0.0)
     for (beg in points) {
@@ -184,7 +186,7 @@ fun lineBySegment(s: Segment): Line = TODO()
  * Построить прямую по двум точкам
  */
 fun lineByPoints(a: Point, b: Point): Line {
-    var angle = asin(abs(a.y - b.y) / a.distance(b))
+    var angle = asin(b.y - a.y / a.distance(b))
     if (angle >= PI) angle -= PI
     if (angle < 0) angle += PI
     return Line(a, angle)
