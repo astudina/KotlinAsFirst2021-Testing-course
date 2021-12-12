@@ -303,21 +303,17 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         prev = line
     }
     var text = "<html>\n<body>\n<p>\n${textList.joinToString("\n")}\n</p>\n</body>\n</html>"
-    text = formatHtml(text)
+    text = formatHtml(text, "**", "<b>", "</b>")
+    text = formatHtml(text, "*", "<i>", "</i>")
+    text = formatHtml(text, "~~", "<s>", "</s>")
     File(outputName).bufferedWriter().use { it.write(text) }
 }
 
-fun formatHtml(text: String): String {
-    val old = listOf("**", "*", "~~")
-    val pre = listOf("<b>", "<i>", "<s>")
-    val post = listOf("</b>", "</i>", "</s>")
+fun formatHtml(text: String, old: String, pre: String, post: String): String {
     var result = text
-    while (old.any { it in result }) {
-        for (i in 0..2)
-            if (old[i] in result) {
-                result = result.replaceFirst(old[i], pre[i])
-                result = result.replaceFirst(old[i], post[i])
-            }
+    while (old in result) {
+        result = result.replaceFirst(old, pre)
+        result = result.replaceFirst(old, post)
     }
     return result
 }
