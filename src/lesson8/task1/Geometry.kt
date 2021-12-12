@@ -132,8 +132,8 @@ fun diameter(vararg points: Point): Segment {
  */
 fun circleByDiameter(diameter: Segment): Circle {
     val center = Point(
-        abs(diameter.begin.x + diameter.end.x) / 2,
-        abs(diameter.begin.y + diameter.end.y) / 2
+        diameter.begin.x + diameter.end.x / 2,
+        diameter.begin.y + diameter.end.y / 2
     )
     val radius = diameter.length() / 2
     return Circle(center, radius)
@@ -197,8 +197,8 @@ fun lineByPoints(a: Point, b: Point): Line {
  */
 fun bisectorByPoints(a: Point, b: Point): Line {
     val center = Point(
-        abs(a.x + b.x) / 2,
-        abs(a.y + b.y) / 2
+        a.x + b.x / 2,
+        a.y + b.y / 2
     )
     var angle = lineByPoints(a, b).angle + PI / 2
     if (angle >= PI) angle -= PI
