@@ -149,8 +149,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     var len = 0
     File(inputName).forEachLine { line ->
         lines += if (line.isNotBlank()) {
-            val loc = line.split(Regex(""" +"""))
-            loc.subList(1, loc.size)
+            line.trim().split(Regex(""" +"""))
         } else listOf("")
         val loc = lines.last().joinToString(" ").length
         if (loc > len) len = loc
