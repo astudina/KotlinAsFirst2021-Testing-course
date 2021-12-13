@@ -202,6 +202,7 @@ fun bisectorByPoints(a: Point, b: Point): Line {
         (a.x + b.x) * 0.5,
         (a.y + b.y) * 0.5
     )
+
     var angle = lineByPoints(a, b).angle + PI / 2
     if (angle >= PI) angle -= PI
     if (angle < 0) angle += PI
