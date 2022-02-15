@@ -2,7 +2,6 @@
 
 package lesson7.task1
 
-import ru.spbstu.wheels.NullableMonad.map
 import java.io.File
 
 // Урок 7: работа с файлами
@@ -319,30 +318,7 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val textList = mutableListOf<String>()
-    var prev = ""
-    File(inputName).forEachLine { line ->
-        if (line.isBlank()) {
-            if (prev.isNotBlank()) textList += "</p>\n<p>"
-        } else textList += line
-        prev = line
-    }
-    if (textList.isNotEmpty() && textList.last() == "</p>\n<p>") textList.removeLast()
-
-    var text = "<html>\n<body>\n<p>\n${textList.joinToString("\n")}\n</p>\n</body>\n</html>"
-    text = formatHtml(text, "**", "<b>", "</b>")
-    text = formatHtml(text, "*", "<i>", "</i>")
-    text = formatHtml(text, "~~", "<s>", "</s>")
-    File(outputName).bufferedWriter().use { it.write(text) }
-}
-
-fun formatHtml(text: String, old: String, pre: String, post: String): String {
-    var result = text
-    while (old in result) {
-        result = result.replaceFirst(old, pre)
-        result = result.replaceFirst(old, post)
-    }
-    return result
+    TODO()
 }
 
 /**
@@ -521,7 +497,7 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
  */
-fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
+fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String): Nothing = TODO()/*{
     File(outputName).bufferedWriter().use { file ->
         val lStr = lhv.toString()
         val lLen = lStr.length
@@ -554,7 +530,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
             }
         }
     }
-}
+}*/
 
 fun genString(pat: String, len: Int): String {
     var str = ""

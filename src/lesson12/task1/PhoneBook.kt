@@ -2,6 +2,8 @@
 
 package lesson12.task1
 
+import java.awt.print.Book
+
 /**
  * Класс "Телефонная книга".
  *
@@ -18,24 +20,7 @@ package lesson12.task1
  * Класс должен иметь конструктор по умолчанию (без параметров).
  */
 class PhoneBook {
-    private var start: Human? = null
-
-    private class Human(
-        val name: String,
-        var phones: Set<String> = emptySet(),
-        var next: Human?
-    )
-
-    val size: Int
-        get() {
-            var current = start
-            var result = 0
-            while (current != null) {
-                current = current.next
-                result++
-            }
-            return result
-        }
+    private val book = mutableMapOf<String, MutableSet<String>>()
 
     /**
      * Добавить человека.
@@ -44,17 +29,11 @@ class PhoneBook {
      * (во втором случае телефонная книга не должна меняться).
      */
     fun addHuman(name: String): Boolean {
-        if (start != null) {
-            val start = start
-            if (start?.name == name) return false
-            var current = start
-            while (current?.next != null) {
-                if (current.next!!.name == name) return false
-                current = current.next
-            }
+        if (name !in book) {
+            book[name] = mutableSetOf()
+            return true
         }
-        start = Human(name, next = start)
-        return true
+        return false
     }
 
     /**
@@ -64,20 +43,9 @@ class PhoneBook {
      * (во втором случае телефонная книга не должна меняться).
      */
     fun removeHuman(name: String): Boolean {
-        val start = start ?: return false
-        if (start.name == name) {
-            this.start = start.next
-            return true
-        }
-        var current = start
-        while (current.next != null) {
-            if (current.next?.name == name) {
-                current.next = current.next?.next
-                return true
-            }
-            current = current.next!!
-        }
-        return false
+        if (name !in book) return false
+        book.remove(name)
+        return true
     }
 
     /**
@@ -88,19 +56,9 @@ class PhoneBook {
      * либо такой номер телефона зарегистрирован за другим человеком.
      */
     fun addPhone(name: String, phone: String): Boolean {
-        val start = start ?: return false
-        if (start.phones.contains(phone)) return false
-        var guy: Human? = null
-        if (start.name == name) guy = start
-        var current = start
-        while (current.next != null) {
-            if (current.next?.phones?.contains(phone) == true) return false
-            if (current.next?.name == name) guy = current.next
-            current = current.next!!
-        }
-        if (guy != null) {
-            if (guy.phones.contains(phone)) return false
-            guy.phones += phone
+        if (name in book) {
+            if (book.values.any { it.contains(phone) }) return false
+            book[name]!!.add(phone)
             return true
         }
         return false
@@ -113,18 +71,9 @@ class PhoneBook {
      * либо у него не было такого номера телефона.
      */
     fun removePhone(name: String, phone: String): Boolean {
-        val start = start ?: return false
-        if (start.name == name && start.phones.contains(phone)) {
-            start.phones = start.phones.minus(phone)
+        if (name in book && book[name]!!.contains(phone)) {
+            book[name]!!.remove(phone)
             return true
-        }
-        var current = start
-        while (current.next != null) {
-            if (current.next?.name == name && current.next?.phones!!.contains(phone)) {
-                current.next?.phones = current.next?.phones?.minus(phone)!!
-                return true
-            }
-            current = current.next!!
         }
         return false
     }
@@ -134,16 +83,8 @@ class PhoneBook {
      * Если этого человека нет в книге, вернуть пустой список
      */
     fun phones(name: String): Set<String> {
-        val start = start ?: return emptySet()
-        if (start.name == name) return start.phones
-        else {
-            var current = start
-            while (current.next != null) {
-                if (current.next?.name == name) return current.next!!.phones
-                current = current.next!!
-            }
-            return emptySet()
-        }
+        if (name in book) return book[name]!!.toSet()
+        return emptySet()
     }
 
     /**
@@ -151,16 +92,10 @@ class PhoneBook {
      * Если такого номера нет в книге, вернуть null.
      */
     fun humanByPhone(phone: String): String? {
-        val start = start ?: return null
-        if (start.phones.contains(phone)) return start.name
-        else {
-            var current = start
-            while (current.next != null) {
-                if (current.next?.phones!!.contains(phone)) return current.next?.name
-                current = current.next!!
-            }
-            return null
+        if (book.values.any { it.contains(phone) }) {
+            for ((name, phones) in book) if (phones.contains(phone)) return name
         }
+        return null
     }
 
     /**
@@ -168,30 +103,7 @@ class PhoneBook {
      * и каждому человеку соответствует одинаковый набор телефонов.
      * Порядок людей / порядок телефонов в книге не должен иметь значения.
      */
-    override fun equals(other: Any?): Boolean {
-        if (other !is PhoneBook) return false
-        if (other === this) return true
-        if (other.start == null && this.start == null) return true
-        if (other.size != this.size) return false
-        var current = start
-        while (current != null) {
-            var state = false
-            var otherCurrent = other.start
-            while (otherCurrent != null && !state) {
-                if (current.name == otherCurrent.name && current.phones == otherCurrent.phones) {
-                    state = true
-                    break
-                }
-                otherCurrent = otherCurrent.next
-            }
-            if (!state) return false
-            current = current.next
-        }
-        return true
-    }
+    override fun equals(other: Any?): Boolean = other is PhoneBook && other.book == book
 
-    override fun hashCode(): Int {
-        return size
-    }
-
+    override fun hashCode(): Int = book.hashCode()
 }
