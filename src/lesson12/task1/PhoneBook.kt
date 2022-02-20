@@ -2,7 +2,7 @@
 
 package lesson12.task1
 
-import java.awt.print.Book
+import lesson3.task1.isCoPrime
 
 /**
  * Класс "Телефонная книга".
@@ -83,7 +83,7 @@ class PhoneBook {
      * Если этого человека нет в книге, вернуть пустой список
      */
     fun phones(name: String): Set<String> {
-        if (name in book) return book[name]!!.toSet()
+        if (name in book) return book[name]!!
         return emptySet()
     }
 
@@ -91,12 +91,7 @@ class PhoneBook {
      * Вернуть имя человека по заданному номеру телефона.
      * Если такого номера нет в книге, вернуть null.
      */
-    fun humanByPhone(phone: String): String? {
-        if (book.values.any { it.contains(phone) }) {
-            for ((name, phones) in book) if (phones.contains(phone)) return name
-        }
-        return null
-    }
+    fun humanByPhone(phone: String): String? = book.keys.find { book[it]!!.contains(phone) }
 
     /**
      * Две телефонные книги равны, если в них хранится одинаковый набор людей,

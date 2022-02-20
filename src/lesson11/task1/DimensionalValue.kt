@@ -32,7 +32,7 @@ class DimensionalValue(value: Double, dimension: String) : Comparable<Dimensiona
     init {
         if (Dimension.values().any { it.abbreviation == dimension.last().toString() })
             this.dimension = Dimension.values().find { it.abbreviation == dimension.last().toString() }!!
-        else throw IllegalArgumentException()
+        else throw IllegalArgumentException("Incorrect dimension $dimension")
 
         val prefix = dimension.replaceFirst(this.dimension.abbreviation, "")
         if (DimensionPrefix.values().any { it.abbreviation == prefix }) {
@@ -82,7 +82,6 @@ class DimensionalValue(value: Double, dimension: String) : Comparable<Dimensiona
      */
     operator fun div(other: DimensionalValue): Double {
         if (dimension != other.dimension) throw IllegalArgumentException()
-        println("$value, ${other.value}")
         return value / other.value
     }
 
