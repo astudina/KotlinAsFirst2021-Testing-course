@@ -2,8 +2,6 @@
 
 package lesson12.task1
 
-import lesson3.task1.isCoPrime
-
 /**
  * Класс "Телефонная книга".
  *

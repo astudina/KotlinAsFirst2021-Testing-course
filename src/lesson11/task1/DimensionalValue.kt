@@ -43,7 +43,9 @@ class DimensionalValue(value: Double, dimension: String) : Comparable<Dimensiona
     /**
      * Конструктор из строки. Формат строки: значение пробел размерность (1 Kg, 3 mm, 100 g и так далее).
      */
-    constructor(s: String) : this(s.split(" ")[0].toDouble(), s.split(" ")[1])
+    constructor(s: String) : this(s.split(" ")[0].toDouble(), s.split(" ")[1]) {
+        if (!s.matches(Regex("""\d+ \w+"""))) throw IllegalArgumentException("Incorrect input string")
+    }
 
     /**
      * Сложение с другой величиной. Если базовая размерность разная, бросить IllegalArgumentException

@@ -22,6 +22,7 @@ internal class DimensionalValueTest {
         assertEquals(200.0, second.value)
         assertEquals(Dimension.METER, second.dimension)
         assertThrows(IllegalArgumentException::class.java) { DimensionalValue("100 l") }
+        assertThrows(IllegalArgumentException::class.java) { DimensionalValue("100g") }
     }
 
     @Test
