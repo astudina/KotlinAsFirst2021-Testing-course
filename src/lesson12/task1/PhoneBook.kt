@@ -19,6 +19,7 @@ package lesson12.task1
  */
 class PhoneBook {
     private val book = mutableMapOf<String, MutableSet<String>>()
+    private val rebook = mutableMapOf<String, String>()
 
     /**
      * Добавить человека.
@@ -42,6 +43,7 @@ class PhoneBook {
      */
     fun removeHuman(name: String): Boolean {
         if (name !in book) return false
+        for (phone in book[name]!!) rebook.remove(phone)
         book.remove(name)
         return true
     }
@@ -55,8 +57,9 @@ class PhoneBook {
      */
     fun addPhone(name: String, phone: String): Boolean {
         if (name in book) {
-            if (book.values.any { it.contains(phone) }) return false
+            if (rebook.contains(phone)) return false
             book[name]!!.add(phone)
+            rebook[phone] = name
             return true
         }
         return false
@@ -71,6 +74,7 @@ class PhoneBook {
     fun removePhone(name: String, phone: String): Boolean {
         if (name in book && book[name]!!.contains(phone)) {
             book[name]!!.remove(phone)
+            rebook.remove(phone)
             return true
         }
         return false
@@ -89,7 +93,7 @@ class PhoneBook {
      * Вернуть имя человека по заданному номеру телефона.
      * Если такого номера нет в книге, вернуть null.
      */
-    fun humanByPhone(phone: String): String? = book.keys.find { book[it]!!.contains(phone) }
+    fun humanByPhone(phone: String): String? = rebook[phone]
 
     /**
      * Две телефонные книги равны, если в них хранится одинаковый набор людей,

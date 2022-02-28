@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("UNUSED_P()ARAMETER")
 
 package lesson11.task1
 
@@ -19,6 +19,8 @@ import java.lang.IllegalArgumentException
  * - во всех остальных случаях следует бросить IllegalArgumentException
  */
 class DimensionalValue(value: Double, dimension: String) : Comparable<DimensionalValue> {
+
+    //private val mapDimension:
     /**
      * Величина с БАЗОВОЙ размерностью (например для 1.0Kg следует вернуть результат в граммах -- 1000.0)
      */
@@ -30,13 +32,12 @@ class DimensionalValue(value: Double, dimension: String) : Comparable<Dimensiona
     val dimension: Dimension
 
     init {
-        if (Dimension.values().any { it.abbreviation == dimension.last().toString() })
-            this.dimension = Dimension.values().find { it.abbreviation == dimension.last().toString() }!!
-        else throw IllegalArgumentException("Incorrect dimension $dimension")
+        this.dimension = Dimension.map()[dimension]
+            ?: throw IllegalArgumentException("Incorrect dimension $dimension")
 
         val prefix = dimension.replaceFirst(this.dimension.abbreviation, "")
-        if (DimensionPrefix.values().any { it.abbreviation == prefix }) {
-            this.value = value * DimensionPrefix.values().find { it.abbreviation == prefix }!!.multiplier
+        if (DimensionPrefix.map().contains(prefix)) {
+            this.value = value * DimensionPrefix.map()[prefix]!!
         } else this.value = value
     }
 
@@ -114,6 +115,10 @@ class DimensionalValue(value: Double, dimension: String) : Comparable<Dimensiona
 enum class Dimension(val abbreviation: String) {
     METER("m"),
     GRAM("g");
+
+    companion object {
+        fun map(): Map<String, Dimension> = values().associateBy({ it.abbreviation }) { it }
+    }
 }
 
 /**
@@ -122,4 +127,8 @@ enum class Dimension(val abbreviation: String) {
 enum class DimensionPrefix(val abbreviation: String, val multiplier: Double) {
     KILO("K", 1000.0),
     MILLI("m", 0.001);
+
+    companion object {
+        fun map(): Map<String, Double> = DimensionPrefix.values().associateBy({ it.abbreviation }) { it.multiplier }
+    }
 }
