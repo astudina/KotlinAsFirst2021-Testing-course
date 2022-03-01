@@ -19,8 +19,6 @@ import java.lang.IllegalArgumentException
  * - во всех остальных случаях следует бросить IllegalArgumentException
  */
 class DimensionalValue(value: Double, dimension: String) : Comparable<DimensionalValue> {
-
-    //private val mapDimension:
     /**
      * Величина с БАЗОВОЙ размерностью (например для 1.0Kg следует вернуть результат в граммах -- 1000.0)
      */
@@ -32,21 +30,29 @@ class DimensionalValue(value: Double, dimension: String) : Comparable<Dimensiona
     val dimension: Dimension
 
     init {
-        this.dimension = Dimension.map()[dimension]
+        this.dimension = Dimension.map[dimension.last().toString()]
             ?: throw IllegalArgumentException("Incorrect dimension $dimension")
 
         val prefix = dimension.replaceFirst(this.dimension.abbreviation, "")
-        if (DimensionPrefix.map().contains(prefix)) {
-            this.value = value * DimensionPrefix.map()[prefix]!!
-        } else this.value = value
+        this.value = value * (DimensionPrefix.map[prefix]
+            ?: throw IllegalArgumentException("Incorrect dimension prefix $prefix"))
     }
 
     /**
      * Конструктор из строки. Формат строки: значение пробел размерность (1 Kg, 3 mm, 100 g и так далее).
      */
-    constructor(s: String) : this(s.split(" ")[0].toDouble(), s.split(" ")[1]) {
-        if (!s.matches(Regex("""\d+ \w+"""))) throw IllegalArgumentException("Incorrect input string")
-    }
+//    constructor(s: String) : this(s.split(" ")[0].toDouble(), s.split(" ")[1]) {
+//        if (s.matches(Regex("""\d+ \w+"""))) {
+//            val _s = s
+//        } else throw IllegalArgumentException("Incorrect input string")
+//    }
+
+    constructor(s: String) : this(
+        if (s.matches(Regex("""\-?\d+ \w+""")))
+            s.split(" ")[0].toDouble()
+        else throw IllegalArgumentException("Incorrect input string"),
+        s.split(" ")[1]
+    )
 
     /**
      * Сложение с другой величиной. Если базовая размерность разная, бросить IllegalArgumentException
@@ -117,7 +123,7 @@ enum class Dimension(val abbreviation: String) {
     GRAM("g");
 
     companion object {
-        fun map(): Map<String, Dimension> = values().associateBy({ it.abbreviation }) { it }
+        val map = values().associateBy({ it.abbreviation }) { it }
     }
 }
 
@@ -125,10 +131,11 @@ enum class Dimension(val abbreviation: String) {
  * Приставка размерности. Опять-таки можно добавить новые варианты (деци-, санти-, мега-, ...), но нельзя убирать
  */
 enum class DimensionPrefix(val abbreviation: String, val multiplier: Double) {
+    ONE("", 1.0),
     KILO("K", 1000.0),
     MILLI("m", 0.001);
 
     companion object {
-        fun map(): Map<String, Double> = DimensionPrefix.values().associateBy({ it.abbreviation }) { it.multiplier }
+        val map = values().associateBy({ it.abbreviation }) { it.multiplier }
     }
 }
