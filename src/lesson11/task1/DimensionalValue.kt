@@ -48,7 +48,7 @@ class DimensionalValue(value: Double, dimension: String) : Comparable<Dimensiona
 //    }
 
     constructor(s: String) : this(
-        if (s.matches(Regex("""\-?\d+ \w+""")))
+        if (s.matches(Regex("""-?\d+ \w+""")))
             s.split(" ")[0].toDouble()
         else throw IllegalArgumentException("Incorrect input string"),
         s.split(" ")[1]
