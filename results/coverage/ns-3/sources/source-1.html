@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+    <title>Coverage Report > FilesKt</title>
+    <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+
+    </style>
+    <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+    <div class="breadCrumbs">
+        Current scope: <a href="../../index.html">all classes</a>
+        <span class="separator">|</span>
+        <a href="../index.html">lesson7.task1</a>
+    </div>
+
+    <h1>Coverage Summary for Class: FilesKt (lesson7.task1)</h1>
+
+    <table class="coverageStats">
+
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
+">
+                Method, %
+            </th>
+            <th class="coverageStat
+">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">FilesKt</td>
+            <td class="coverageStat">
+  <span class="percent">
+    5,9%
+  </span>
+                <span class="absValue">
+    (1/17)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    15,9%
+  </span>
+                <span class="absValue">
+    (11/69)
+  </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="name">FilesKt$alignFileByWidth$1</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/5)
+  </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="name">FilesKt$chooseLongestChaoticWord$1</td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/1)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+                <span class="absValue">
+    (0/11)
+  </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="name"><strong>Total</strong></td>
+            <td class="coverageStat">
+  <span class="percent">
+    5,3%
+  </span>
+                <span class="absValue">
+    (1/19)
+  </span>
+            </td>
+            <td class="coverageStat">
+  <span class="percent">
+    12,9%
+  </span>
+                <span class="absValue">
+    (11/85)
+  </span>
+            </td>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;@file:Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;ConvertCallChainIntoSequence&quot;)
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;package lesson7.task1
+<i class="no-highlight">4</i>&nbsp;
+<i class="no-highlight">5</i>&nbsp;import java.io.File
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;// ���� 7: ������ � �������
+<i class="no-highlight">8</i>&nbsp;// ���� ������������, ������� ��� ������ ����� ������ ����������� ���������
+<i class="no-highlight">9</i>&nbsp;// ������������ ���������� ������ = 55
+<i class="no-highlight">10</i>&nbsp;// ������������� ���������� ������ = 20
+<i class="no-highlight">11</i>&nbsp;// ������ � ����������� ������� (���� ������, 3-7) = 55/103
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;/**
+<i class="no-highlight">14</i>&nbsp; * ������
+<i class="no-highlight">15</i>&nbsp; *
+<i class="no-highlight">16</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� �����.
+<i class="no-highlight">17</i>&nbsp; * ������� ��� � �������� ���� � ������ outputName, �������� �� ������ ����,
+<i class="no-highlight">18</i>&nbsp; * ����� ����� ������ ������ �� ������������ lineLength.
+<i class="no-highlight">19</i>&nbsp; * ����� � ������� ������� ������� ������� ���������� �� ��������� ������.
+<i class="no-highlight">20</i>&nbsp; * ������� �������� ������ ������� ��������� ������� �� ��������� ������.
+<i class="no-highlight">21</i>&nbsp; * ������ ������ �� ������� ����� ���������� ����� ������,
+<i class="no-highlight">22</i>&nbsp; * �� ������� ��������� � � �������� �����
+<i class="no-highlight">23</i>&nbsp; */
+<i class="no-highlight">24</i>&nbsp;fun alignFile(inputName: String, lineLength: Int, outputName: String) {
+<b class="nc"><i class="no-highlight">25</i>&nbsp;    val writer = File(outputName).bufferedWriter()</b>
+<b class="nc"><i class="no-highlight">26</i>&nbsp;    var currentLineLength = 0</b>
+<i class="no-highlight">27</i>&nbsp;    fun append(word: String) {
+<b class="nc"><i class="no-highlight">28</i>&nbsp;        if (currentLineLength &gt; 0) {</b>
+<b class="nc"><i
+        class="no-highlight">29</i>&nbsp;            if (word.length + currentLineLength &gt;= lineLength) {</b>
+<b class="nc"><i class="no-highlight">30</i>&nbsp;                writer.newLine()</b>
+<b class="nc"><i class="no-highlight">31</i>&nbsp;                currentLineLength = 0</b>
+<i class="no-highlight">32</i>&nbsp;            } else {
+<b class="nc"><i class="no-highlight">33</i>&nbsp;                writer.write(&quot; &quot;)</b>
+<b class="nc"><i class="no-highlight">34</i>&nbsp;                currentLineLength++</b>
+<i class="no-highlight">35</i>&nbsp;            }
+<i class="no-highlight">36</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">37</i>&nbsp;        writer.write(word)</b>
+<b class="nc"><i class="no-highlight">38</i>&nbsp;        currentLineLength += word.length</b>
+<i class="no-highlight">39</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">40</i>&nbsp;    for (line in File(inputName).readLines()) {</b>
+<b class="nc"><i class="no-highlight">41</i>&nbsp;        if (line.isEmpty()) {</b>
+<b class="nc"><i class="no-highlight">42</i>&nbsp;            writer.newLine()</b>
+<b class="nc"><i class="no-highlight">43</i>&nbsp;            if (currentLineLength &gt; 0) {</b>
+<b class="nc"><i class="no-highlight">44</i>&nbsp;                writer.newLine()</b>
+<b class="nc"><i class="no-highlight">45</i>&nbsp;                currentLineLength = 0</b>
+<i class="no-highlight">46</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">47</i>&nbsp;            continue</b>
+<i class="no-highlight">48</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">49</i>&nbsp;        for (word in line.split(Regex(&quot;\\s+&quot;))) {</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;            append(word)</b>
+<i class="no-highlight">51</i>&nbsp;        }
+<i class="no-highlight">52</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">53</i>&nbsp;    writer.close()</b>
+<i class="no-highlight">54</i>&nbsp;}
+<i class="no-highlight">55</i>&nbsp;
+<i class="no-highlight">56</i>&nbsp;/**
+<i class="no-highlight">57</i>&nbsp; * ������� (8 ������)
+<i class="no-highlight">58</i>&nbsp; *
+<i class="no-highlight">59</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� �����.
+<i class="no-highlight">60</i>&nbsp; * ��������� ��� ������ �������� �� �������� ������ �������� _ (�������������).
+<i class="no-highlight">61</i>&nbsp; * ��������� � �������� ���� � ������ outputName ��� ������ �������� �����, ����� ��� ���� ���������� �� ��������.
+<i class="no-highlight">62</i>&nbsp; * ��� ��������� ������ ������ ���� ���������� ��� ���������, ������� ������ ������.
+<i class="no-highlight">63</i>&nbsp; * ������������� � �������� �/��� � ����� ����� �������� �� �����.
+<i class="no-highlight">64</i>&nbsp; */
+<i class="no-highlight">65</i>&nbsp;fun deleteMarked(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">66</i>&nbsp;    TODO()</b>
+<i class="no-highlight">67</i>&nbsp;}
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;/**
+<i class="no-highlight">70</i>&nbsp; * ������� (14 ������)
+<i class="no-highlight">71</i>&nbsp; *
+<i class="no-highlight">72</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� �����.
+<i class="no-highlight">73</i>&nbsp; * �� ���� ������� ������ ����� substrings.
+<i class="no-highlight">74</i>&nbsp; * ������� ������������� ������ � ������ ��������� ������ �� ����� � �����.
+<i class="no-highlight">75</i>&nbsp; * ������� ���� ������������, �� ���� ����� � � � ������� �����������.
+<i class="no-highlight">76</i>&nbsp; *
+<i class="no-highlight">77</i>&nbsp; */
+<b class="nc"><i class="no-highlight">78</i>&nbsp;fun countSubstrings(inputName: String, substrings: List&lt;String&gt;): Map&lt;String, Int&gt; = TODO()</b>
+<i class="no-highlight">79</i>&nbsp;
+<i class="no-highlight">80</i>&nbsp;
+<i class="no-highlight">81</i>&nbsp;/**
+<i class="no-highlight">82</i>&nbsp; * ������� (12 ������)
+<i class="no-highlight">83</i>&nbsp; *
+<i class="no-highlight">84</i>&nbsp; * � ������� �����, ��� �������, ����� ���� �, �, �, � ������� �, �, �, � �� �, �, �.
+<i class="no-highlight">85</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� ����� �� ������� �����.
+<i class="no-highlight">86</i>&nbsp; * ��������� ����� �� ������� ����� �� ���������� ������� ������� � ������� � ��������
+<i class="no-highlight">87</i>&nbsp; * ���� outputName ����� � ������������� ��������.
+<i class="no-highlight">88</i>&nbsp; *
+<i class="no-highlight">89</i>&nbsp; * ������� ��������� ���� ������� ���������.
+<i class="no-highlight">90</i>&nbsp; *
+<i class="no-highlight">91</i>&nbsp; * ���������� (����, �������, �������) � ������ ������� ������� ������������ �� �����
+<i class="no-highlight">92</i>&nbsp; *
+<i class="no-highlight">93</i>&nbsp; */
+<i class="no-highlight">94</i>&nbsp;fun sibilants(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">95</i>&nbsp;    TODO()</b>
+<i class="no-highlight">96</i>&nbsp;}
+<i class="no-highlight">97</i>&nbsp;
+<i class="no-highlight">98</i>&nbsp;/**
+<i class="no-highlight">99</i>&nbsp; * ������� (15 ������)
+<i class="no-highlight">100</i>&nbsp; *
+<i class="no-highlight">101</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� ����� (� ��� �����, � �� ������� �����).
+<i class="no-highlight">102</i>&nbsp; * ������� ��� � �������� ���� � ������ outputName, �������� �� ������
+<i class="no-highlight">103</i>&nbsp; * ������������ ����� ������� ������.
+<i class="no-highlight">104</i>&nbsp; *
+<i class="no-highlight">105</i>&nbsp; * ������������ ������� ����������� ���� ���������� �������� � ������ ������.
+<i class="no-highlight">106</i>&nbsp; *
+<i class="no-highlight">107</i>&nbsp; *
+<i class="no-highlight">108</i>&nbsp; * ��������� ������� ������ ���� ���������:
+<i class="no-highlight">109</i>&nbsp; * 1) ������� � ������ � � ����� ���� ����� �� ������� ���������.
+<i class="no-highlight">110</i>&nbsp; * 2) � ������ ������������� ������������ ������ �� ������, ������ ������ ���� �������� � ����� �������
+<i class="no-highlight">111</i>&nbsp; * 3) ������ ������ �� �������� ������ �������, �� ���� ������� �����������
+<i class="no-highlight">112</i>&nbsp; * 4) ����� ����� � �������� ����� ������ ���� ����� ����� ����� �� ������� (� �. �. ������)
+<i class="no-highlight">113</i>&nbsp; *
+<i class="no-highlight">114</i>&nbsp; */
+<i class="no-highlight">115</i>&nbsp;fun centerFile(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">116</i>&nbsp;    TODO()</b>
+<i class="no-highlight">117</i>&nbsp;}
+<i class="no-highlight">118</i>&nbsp;
+<i class="no-highlight">119</i>&nbsp;/**
+<i class="no-highlight">120</i>&nbsp; * ������� (20 ������)
+<i class="no-highlight">121</i>&nbsp; *
+<i class="no-highlight">122</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� ����� (� ��� �����, � �� ������� �����).
+<i class="no-highlight">123</i>&nbsp; * ������� ��� � �������� ���� � ������ outputName, �������� �� ������ � ������� ���� ������������
+<i class="no-highlight">124</i>&nbsp; * ����� ������� ������.
+<i class="no-highlight">125</i>&nbsp; * ������������ �����������, �������� �������������� ������� ����� �������: ���������� �� ���� ������
+<i class="no-highlight">126</i>&nbsp; *
+<i class="no-highlight">127</i>&nbsp; * ����� ������ ������ ���������� ���� �� ����� ����� ��� ����� ��������.
+<i class="no-highlight">128</i>&nbsp; *
+<i class="no-highlight">129</i>&nbsp; * ��������� ������� ������ ���� ���������:
+<i class="no-highlight">130</i>&nbsp; * 1) ������ ������ �������� � ��������� ����� �� ������ ���������� ��� ������������� ��������.
+<i class="no-highlight">131</i>&nbsp; * 2) ������ ������ ��� ������ �� �������� ���������������� � ������ ������ ��� ��������.
+<i class="no-highlight">132</i>&nbsp; * 3) ������ �� ������ ����� ��������� ��� ��������.
+<i class="no-highlight">133</i>&nbsp; * 4) ����� ����� � �������� ����� ������ ���� ����� ����� ����� �� ������� (� �. �. ������).
+<i class="no-highlight">134</i>&nbsp; *
+<i class="no-highlight">135</i>&nbsp; * ������������� ������������ ���������� ����������� ���������:
+<i class="no-highlight">136</i>&nbsp; * 5) ����� �������� ����� ������� ����� ������ �������� ���� �� ������ ���������� �����, ��� �� 1.
+<i class="no-highlight">137</i>&nbsp; * 6) ����� �������� ����� ����� ����� ����� �������� ���� ������ ���� ������ ��� ����� ����� ��������
+<i class="no-highlight">138</i>&nbsp; *    ����� ����� ������ ����� �������� ����.
+<i class="no-highlight">139</i>&nbsp; *
+<i class="no-highlight">140</i>&nbsp; * ������� ������, ��� ������� ���� ����� ��������� ������������������ �� ���������� ��������  ����� �������. �����
+<i class="no-highlight">141</i>&nbsp; * ������������������ ������� ��������� ��� ������������ � ��� ������������� ����������� �� ������ ��������.
+<i class="no-highlight">142</i>&nbsp; * �� ����� ������� ��������� �������:
+<i class="no-highlight">143</i>&nbsp; * 7) � ����� ������� ������ ������ ���� �������� ���� ������ ���� �������� � �������� ����� ��������
+<i class="no-highlight">144</i>&nbsp; * 8) ���� ������� ���� ������������� ����������� 1-7, �� �� ������ ���� � �������� ��������� ��������� �����
+<i class="no-highlight">145</i>&nbsp; */
+<i class="no-highlight">146</i>&nbsp;fun alignFileByWidth(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">147</i>&nbsp;    val lines = mutableListOf&lt;List&lt;String&gt;&gt;()</b>
+<b class="nc"><i class="no-highlight">148</i>&nbsp;    var len = 0</b>
+<b class="nc"><i class="no-highlight">149</i>&nbsp;    File(inputName).forEachLine { line -&gt;</b>
+<b class="nc"><i class="no-highlight">150</i>&nbsp;        lines += if (line.isNotBlank()) {</b>
+<b class="nc"><i class="no-highlight">151</i>&nbsp;            line.trim().split(Regex(&quot;&quot;&quot; +&quot;&quot;&quot;))</b>
+<b class="nc"><i class="no-highlight">152</i>&nbsp;        } else listOf(&quot;&quot;)</b>
+<b class="nc"><i class="no-highlight">153</i>&nbsp;        val loc = lines.last().joinToString(&quot; &quot;).length</b>
+<b class="nc"><i class="no-highlight">154</i>&nbsp;        if (loc &gt; len) len = loc</b>
+<i class="no-highlight">155</i>&nbsp;    }
+<i class="no-highlight">156</i>&nbsp;
+<b class="nc"><i class="no-highlight">157</i>&nbsp;    for ((ind, sepLine) in lines.withIndex()) {</b>
+<b class="nc"><i class="no-highlight">158</i>&nbsp;        val sep = sepLine.toMutableList()</b>
+<b class="nc"><i class="no-highlight">159</i>&nbsp;        var line = sep.joinToString(&quot; &quot;)</b>
+<b class="nc"><i class="no-highlight">160</i>&nbsp;        while (line.length &lt; len &amp;&amp; sep.size &gt; 1) {</b>
+<b class="nc"><i class="no-highlight">161</i>&nbsp;            for (index in 0 until sep.lastIndex) {</b>
+<b class="nc"><i class="no-highlight">162</i>&nbsp;                line = sep.joinToString(&quot; &quot;)</b>
+<b class="nc"><i class="no-highlight">163</i>&nbsp;                if (line.length &gt;= len) break</b>
+<b class="nc"><i class="no-highlight">164</i>&nbsp;                sep[index] += &quot; &quot;</b>
+<i class="no-highlight">165</i>&nbsp;            }
+<i class="no-highlight">166</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">167</i>&nbsp;        lines[ind] = sep</b>
+<i class="no-highlight">168</i>&nbsp;    }
+<i class="no-highlight">169</i>&nbsp;
+<b class="nc"><i class="no-highlight">170</i>&nbsp;    File(outputName).bufferedWriter().use { file -&gt;</b>
+<b class="nc"><i class="no-highlight">171</i>&nbsp;        for (line in lines) file.write(line.joinToString(&quot; &quot;) + &quot;\n&quot;)</b>
+<b class="nc"><i class="no-highlight">172</i>&nbsp;    }</b>
+<i class="no-highlight">173</i>&nbsp;}
+<i class="no-highlight">174</i>&nbsp;
+<i class="no-highlight">175</i>&nbsp;/**
+<i class="no-highlight">176</i>&nbsp; * ������� (14 ������)
+<i class="no-highlight">177</i>&nbsp; *
+<i class="no-highlight">178</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� ����� (� ��� �����, � �� ������� �����).
+<i class="no-highlight">179</i>&nbsp; *
+<i class="no-highlight">180</i>&nbsp; * ������� ������������� ������, ���������� 20 �������� ����� ������������� ���� � �� �����������.
+<i class="no-highlight">181</i>&nbsp; * ���� � ������ ����� 20 ��������� ����, ������� ��� �����.
+<i class="no-highlight">182</i>&nbsp; * ������� ������������� ������ � ������ ���� ������ 20, ���� 20-�, 21-�, ..., ��������� �����
+<i class="no-highlight">183</i>&nbsp; * ����� ���������� ���������� ��������� (��. ����� ���� ����� input/onegin.txt).
+<i class="no-highlight">184</i>&nbsp; *
+<i class="no-highlight">185</i>&nbsp; * ������ ��������� ����������� ������������������ �� ���� (�������������,
+<i class="no-highlight">186</i>&nbsp; * ���� ���������, ��� ������ ���������� � ����).
+<i class="no-highlight">187</i>&nbsp; * �����, �������, ����� ���������� ��������� ������������� ����:
+<i class="no-highlight">188</i>&nbsp; * ������, ������42, ������!!! -������?!
+<i class="no-highlight">189</i>&nbsp; * ^ � ���� ������� ����� ������ ����������� 4 ����.
+<i class="no-highlight">190</i>&nbsp; *
+<i class="no-highlight">191</i>&nbsp; * ������� ���� ������������, �� ���� ����� � � � ������� �����������.
+<i class="no-highlight">192</i>&nbsp; * ����� � ������������� ������� ������ ���� � ������ ��������.
+<i class="no-highlight">193</i>&nbsp; *
+<i class="no-highlight">194</i>&nbsp; */
+<b class="nc"><i
+        class="no-highlight">195</i>&nbsp;fun top20Words(inputName: String): Map&lt;String, Int&gt; = TODO()</b>
+<i class="no-highlight">196</i>&nbsp;
+<i class="no-highlight">197</i>&nbsp;/**
+<i class="no-highlight">198</i>&nbsp; * ������� (14 ������)
+<i class="no-highlight">199</i>&nbsp; *
+<i class="no-highlight">200</i>&nbsp; * ����������� �������������� ������ �� �������� ����� � �������� ���� ����������� ����������� ���������� ������.
+<i class="no-highlight">201</i>&nbsp;
+<i class="no-highlight">202</i>&nbsp; * �� ������� ����� � ������ inputName ���������� ��������� ����� (� ��� �����, � �� ������� �����).
+<i class="no-highlight">203</i>&nbsp; *
+<i class="no-highlight">204</i>&nbsp; * � ������������� ������� dictionary ���������� �������, � ������� ��������� ��������
+<i class="no-highlight">205</i>&nbsp; * �������� � ������������ ������� �� ��������, ��������
+<i class="no-highlight">206</i>&nbsp; * mapOf(&#39;�&#39; to &quot;zz&quot;, &#39;�&#39; to &quot;r&quot;, &#39;�&#39; to &quot;d&quot;, &#39;�&#39; to &quot;y&quot;, &#39;�&#39; to &quot;m&quot;, &#39;�&#39; to &quot;yy&quot;, &#39;!&#39; to &quot;!!!&quot;)
+<i class="no-highlight">207</i>&nbsp; *
+<i class="no-highlight">208</i>&nbsp; * ���������� ������� � �������� ���� � ������ outputName
+<i class="no-highlight">209</i>&nbsp; * ���������� ������ � ������� ���� �������� �� ������� �� ��������������� �� ������.
+<i class="no-highlight">210</i>&nbsp; *
+<i class="no-highlight">211</i>&nbsp; * ��� ���� ������� �������� � ������� ������ ��������������,
+<i class="no-highlight">212</i>&nbsp; * �� ��� ������ ������ � ������� �������� ������������ � ������, ������������ � ������� � ������� ��������.
+<i class="no-highlight">213</i>&nbsp; *
+<i class="no-highlight">214</i>&nbsp; * ������.
+<i class="no-highlight">215</i>&nbsp; * ������� �����: ����������, ���!
+<i class="no-highlight">216</i>&nbsp; *
+<i class="no-highlight">217</i>&nbsp; * ���������� ��
+<i class="no-highlight">218</i>&nbsp; *
+<i class="no-highlight">219</i>&nbsp; * �������� �����: Zzdr������y, m��!!!
+<i class="no-highlight">220</i>&nbsp; *
+<i class="no-highlight">221</i>&nbsp; * ������ 2.
+<i class="no-highlight">222</i>&nbsp; *
+<i class="no-highlight">223</i>&nbsp; * ������� �����: ����������, ���!
+<i class="no-highlight">224</i>&nbsp; * �������: mapOf(&#39;�&#39; to &quot;zZ&quot;, &#39;�&#39; to &quot;r&quot;, &#39;�&#39; to &quot;d&quot;, &#39;�&#39; to &quot;y&quot;, &#39;�&#39; to &quot;m&quot;, &#39;�&#39; to &quot;YY&quot;, &#39;!&#39; to &quot;!!!&quot;)
+<i class="no-highlight">225</i>&nbsp; *
+<i class="no-highlight">226</i>&nbsp; * ���������� ��
+<i class="no-highlight">227</i>&nbsp; *
+<i class="no-highlight">228</i>&nbsp; * �������� �����: Zzdr������y, m��!!!
+<i class="no-highlight">229</i>&nbsp; *
+<i class="no-highlight">230</i>&nbsp; * �������� ��������: ������ ������� �� ����� ������������� ��������
+<i class="no-highlight">231</i>&nbsp; */
+<i class="no-highlight">232</i>&nbsp;fun transliterate(inputName: String, dictionary: Map&lt;Char, String&gt;, outputName: String) {
+<b class="nc"><i class="no-highlight">233</i>&nbsp;    TODO()</b>
+<i class="no-highlight">234</i>&nbsp;}
+<i class="no-highlight">235</i>&nbsp;
+<i class="no-highlight">236</i>&nbsp;/**
+<i class="no-highlight">237</i>&nbsp; * ������� (12 ������)
+<i class="no-highlight">238</i>&nbsp; *
+<i class="no-highlight">239</i>&nbsp; * �� ������� ����� � ������ inputName ������� ������� � ����� ������ � ������ �������.
+<i class="no-highlight">240</i>&nbsp; * ������� �� ������� ������� �������� ������� �����,
+<i class="no-highlight">241</i>&nbsp; * � ������� ��� ����� ������, ��������: ������������, ��������������.
+<i class="no-highlight">242</i>&nbsp; * ������� ��� � �������� ���� � ������ outputName.
+<i class="no-highlight">243</i>&nbsp; * ���� �� ������� ����� ������� ��������� ���� � ���������� ������, � ������� ��� ����� ������,
+<i class="no-highlight">244</i>&nbsp; * � �������� ���� ������� ������� �� ��� ����� �������.
+<i class="no-highlight">245</i>&nbsp; * ������� ���� ������������, �� ���� ����� � � � ������� �����������.
+<i class="no-highlight">246</i>&nbsp; *
+<i class="no-highlight">247</i>&nbsp; * ������ �������� �����:
+<i class="no-highlight">248</i>&nbsp; * ����������
+<i class="no-highlight">249</i>&nbsp; * ���������
+<i class="no-highlight">250</i>&nbsp; * ����������
+<i class="no-highlight">251</i>&nbsp; * ����������
+<i class="no-highlight">252</i>&nbsp; * ����������
+<i class="no-highlight">253</i>&nbsp; * ����������
+<i class="no-highlight">254</i>&nbsp;
+<i class="no-highlight">255</i>&nbsp; * ��������������� �������� ����:
+<i class="no-highlight">256</i>&nbsp; * ����������, ����������
+<i class="no-highlight">257</i>&nbsp; *
+<i class="no-highlight">258</i>&nbsp; * �������� ��������: ������ ������� �� ����� ������������� ��������
+<i class="no-highlight">259</i>&nbsp; */
+<i class="no-highlight">260</i>&nbsp;fun chooseLongestChaoticWord(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">261</i>&nbsp;    val chosen = mutableListOf(&quot;&quot;)</b>
+<b class="nc"><i class="no-highlight">262</i>&nbsp;    File(inputName).forEachLine { w -&gt;</b>
+<b class="nc"><i class="no-highlight">263</i>&nbsp;        val wLow = w.lowercase()</b>
+<b class="nc"><i class="no-highlight">264</i>&nbsp;        if (wLow.all { char -&gt; wLow.count { it == char } == 1 }) {</b>
+<b class="nc"><i class="no-highlight">265</i>&nbsp;            if (w.length == chosen[0].length) chosen += w</b>
+<b class="nc"><i class="no-highlight">266</i>&nbsp;            if (w.length &gt; chosen[0].length) {</b>
+<b class="nc"><i class="no-highlight">267</i>&nbsp;                chosen.clear()</b>
+<b class="nc"><i class="no-highlight">268</i>&nbsp;                chosen += w</b>
+<i class="no-highlight">269</i>&nbsp;            }
+<i class="no-highlight">270</i>&nbsp;        }
+<i class="no-highlight">271</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">272</i>&nbsp;    File(outputName).bufferedWriter().use { it.write(chosen.joinToString()) }</b>
+<i class="no-highlight">273</i>&nbsp;}
+<i class="no-highlight">274</i>&nbsp;
+<i class="no-highlight">275</i>&nbsp;/**
+<i class="no-highlight">276</i>&nbsp; * ������� (22 �����)
+<i class="no-highlight">277</i>&nbsp; *
+<i class="no-highlight">278</i>&nbsp; * ����������� �������������� ������ � �������� ������� �������� � ������ �������� HTML.
+<i class="no-highlight">279</i>&nbsp; *
+<i class="no-highlight">280</i>&nbsp; * �� ������� ����� � ������ inputName ���������� �����, ���������� � ���� �������� ��������� �������� ��������� �����:
+<i class="no-highlight">281</i>&nbsp; * - *����� � ��������� ����������* -- ������
+<i class="no-highlight">282</i>&nbsp; * - **����� � ���������� ����������** -- ����������
+<i class="no-highlight">283</i>&nbsp; * - ~~����������� �����~~ -- ������������
+<i class="no-highlight">284</i>&nbsp; *
+<i class="no-highlight">285</i>&nbsp; * ������� ������� � �������� ���� ���� �� ����� � ������� HTML:
+<i class="no-highlight">286</i>&nbsp; * - &lt;i&gt;����� � ��������� ����������&lt;/i&gt;
+<i class="no-highlight">287</i>&nbsp; * - &lt;b&gt;����� � ���������� ����������&lt;/b&gt;
+<i class="no-highlight">288</i>&nbsp; * - &lt;s&gt;����������� �����&lt;/s&gt;
+<i class="no-highlight">289</i>&nbsp; *
+<i class="no-highlight">290</i>&nbsp; * ����� ����, ��� ������ ��������� ������, ��������� ���� �� ����� ������� ��������, ������� �������� � ���� &lt;p&gt;...&lt;/p&gt;,
+<i class="no-highlight">291</i>&nbsp; * � ���� ����� ������� � ���� &lt;html&gt;&lt;body&gt;...&lt;/body&gt;&lt;/html&gt;.
+<i class="no-highlight">292</i>&nbsp; *
+<i class="no-highlight">293</i>&nbsp; * ��� ��������� ����� ��������� ������ ������ �������� ����������� � ��������� �� ������� �������� � ��������� �����.
+<i class="no-highlight">294</i>&nbsp; * �������� ������� ��������, ��� ����������� ������������������ �� ��� �������� (***) ������ ������������ ��� &quot;&lt;b&gt;&lt;i&gt;&quot;
+<i class="no-highlight">295</i>&nbsp; * � ����� �����.
+<i class="no-highlight">296</i>&nbsp; *
+<i class="no-highlight">297</i>&nbsp; * ��� ������� ���� � ���� ��������� ����� ������� ��������� ������ ��������� &quot;����&quot;.
+<i class="no-highlight">298</i>&nbsp; *
+<i class="no-highlight">299</i>&nbsp; * ������ �������� �����:
+<i class="no-highlight">300</i>&nbsp;Lorem ipsum *dolor sit amet*, consectetur **adipiscing** elit.
+<i class="no-highlight">301</i>&nbsp;Vestibulum lobortis, ~~Est vehicula rutrum *suscipit*~~, ipsum ~~lib~~ero *placerat **tortor***,
+<i class="no-highlight">302</i>&nbsp;
+<i class="no-highlight">303</i>&nbsp;Suspendisse ~~et elit in enim tempus iaculis~~.
+<i class="no-highlight">304</i>&nbsp; *
+<i class="no-highlight">305</i>&nbsp; * ��������������� �������� ����:
+<i class="no-highlight">306</i>&nbsp;&lt;html&gt;
+<i class="no-highlight">307</i>&nbsp;    &lt;body&gt;
+<i class="no-highlight">308</i>&nbsp;        &lt;p&gt;
+<i class="no-highlight">309</i>&nbsp;            Lorem ipsum &lt;i&gt;dolor sit amet&lt;/i&gt;, consectetur &lt;b&gt;adipiscing&lt;/b&gt; elit.
+<i class="no-highlight">310</i>&nbsp;            Vestibulum lobortis. &lt;s&gt;Est vehicula rutrum &lt;i&gt;suscipit&lt;/i&gt;&lt;/s&gt;, ipsum &lt;s&gt;lib&lt;/s&gt;ero &lt;i&gt;placerat &lt;b&gt;tortor&lt;/b&gt;&lt;/i&gt;.
+<i class="no-highlight">311</i>&nbsp;        &lt;/p&gt;
+<i class="no-highlight">312</i>&nbsp;        &lt;p&gt;
+<i class="no-highlight">313</i>&nbsp;            Suspendisse &lt;s&gt;et elit in enim tempus iaculis&lt;/s&gt;.
+<i class="no-highlight">314</i>&nbsp;        &lt;/p&gt;
+<i class="no-highlight">315</i>&nbsp;    &lt;/body&gt;
+<i class="no-highlight">316</i>&nbsp;&lt;/html&gt;
+<i class="no-highlight">317</i>&nbsp; *
+<i class="no-highlight">318</i>&nbsp; * (������� � �������� ����� � ������� ��������� ��� �����������, ��� ������� ������ �� ������������� �� �����������)
+<i class="no-highlight">319</i>&nbsp; */
+<i class="no-highlight">320</i>&nbsp;fun markdownToHtmlSimple(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">321</i>&nbsp;    TODO()</b>
+<i class="no-highlight">322</i>&nbsp;}
+<i class="no-highlight">323</i>&nbsp;
+<i class="no-highlight">324</i>&nbsp;/**
+<i class="no-highlight">325</i>&nbsp; * ������� (23 �����)
+<i class="no-highlight">326</i>&nbsp; *
+<i class="no-highlight">327</i>&nbsp; * ����������� �������������� ������ � �������� ������� �������� � ������ �������� HTML.
+<i class="no-highlight">328</i>&nbsp; *
+<i class="no-highlight">329</i>&nbsp; * �� ������� ����� � ������ inputName ���������� �����, ���������� � ���� ����� ��������� ���� � ����� �������.
+<i class="no-highlight">330</i>&nbsp; * ������ ������ ���� �����: ������������ � ��������������.
+<i class="no-highlight">331</i>&nbsp; *
+<i class="no-highlight">332</i>&nbsp; * ������ ������� ��������������� ������ ���������� � ����� ������ � ������� &#39;*&#39;, ������ ������� ������������� ������ --
+<i class="no-highlight">333</i>&nbsp; * � ����� ������, ����� � �����. ������ ������� ���������� ������ ���������� � ������� �� ��������, �� 4 ������� ��������,
+<i class="no-highlight">334</i>&nbsp; * ��� ������-��������. ����������� ������� ����������� ������� ����� ��������� 6. &quot;�������&quot; ������ ����� ���������
+<i class="no-highlight">335</i>&nbsp; * ����� � ������ ������.
+<i class="no-highlight">336</i>&nbsp; *
+<i class="no-highlight">337</i>&nbsp; * ������� ������� ���� �� ����� � �������� ���� � ������� HTML:
+<i class="no-highlight">338</i>&nbsp; * ������������ ������:
+<i class="no-highlight">339</i>&nbsp; * &lt;ol&gt;
+<i class="no-highlight">340</i>&nbsp; *     &lt;li&gt;���&lt;/li&gt;
+<i class="no-highlight">341</i>&nbsp; *     &lt;li&gt;���&lt;/li&gt;
+<i class="no-highlight">342</i>&nbsp; *     &lt;li&gt;���&lt;/li&gt;
+<i class="no-highlight">343</i>&nbsp; * &lt;/ol&gt;
+<i class="no-highlight">344</i>&nbsp; *
+<i class="no-highlight">345</i>&nbsp; * �������������� ������:
+<i class="no-highlight">346</i>&nbsp; * &lt;ul&gt;
+<i class="no-highlight">347</i>&nbsp; *     &lt;li&gt;���&lt;/li&gt;
+<i class="no-highlight">348</i>&nbsp; *     &lt;li&gt;���&lt;/li&gt;
+<i class="no-highlight">349</i>&nbsp; *     &lt;li&gt;���&lt;/li&gt;
+<i class="no-highlight">350</i>&nbsp; * &lt;/ul&gt;
+<i class="no-highlight">351</i>&nbsp; *
+<i class="no-highlight">352</i>&nbsp; * ����� ����, ���� ����� ������� ������� �������� � ���� &lt;html&gt;&lt;body&gt;&lt;p&gt;...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+<i class="no-highlight">353</i>&nbsp; *
+<i class="no-highlight">354</i>&nbsp; * ��� ��������� ����� ��������� ������ ������ �������� ����������� � ��������� �� ������� �������� � ��������� �����.
+<i class="no-highlight">355</i>&nbsp; *
+<i class="no-highlight">356</i>&nbsp; * ������ �������� �����:
+<i class="no-highlight">357</i>&nbsp;///////////////////////////////������ �����/////////////////////////////////////////////////////////////////////////////
+<i class="no-highlight">358</i>&nbsp;* ���� ��-��������
+<i class="no-highlight">359</i>&nbsp;    * ����
+<i class="no-highlight">360</i>&nbsp;    * ����
+<i class="no-highlight">361</i>&nbsp;* ����� ������
+<i class="no-highlight">362</i>&nbsp;    1. ����
+<i class="no-highlight">363</i>&nbsp;        * ��� �������
+<i class="no-highlight">364</i>&nbsp;    2. �������
+<i class="no-highlight">365</i>&nbsp;    3. ���������
+<i class="no-highlight">366</i>&nbsp;    4. ���-�� ��� ���
+<i class="no-highlight">367</i>&nbsp;* ��������
+<i class="no-highlight">368</i>&nbsp;* ������
+<i class="no-highlight">369</i>&nbsp;    1. ������
+<i class="no-highlight">370</i>&nbsp;    23. ������
+<i class="no-highlight">371</i>&nbsp;        1. �������
+<i class="no-highlight">372</i>&nbsp;        2. ������
+<i class="no-highlight">373</i>&nbsp;///////////////////////////////����� �����//////////////////////////////////////////////////////////////////////////////
+<i class="no-highlight">374</i>&nbsp; *
+<i class="no-highlight">375</i>&nbsp; *
+<i class="no-highlight">376</i>&nbsp; * ��������������� �������� ����:
+<i class="no-highlight">377</i>&nbsp;///////////////////////////////������ �����/////////////////////////////////////////////////////////////////////////////
+<i class="no-highlight">378</i>&nbsp;&lt;html&gt;
+<i class="no-highlight">379</i>&nbsp;  &lt;body&gt;
+<i class="no-highlight">380</i>&nbsp;    &lt;p&gt;
+<i class="no-highlight">381</i>&nbsp;      &lt;ul&gt;
+<i class="no-highlight">382</i>&nbsp;        &lt;li&gt;
+<i class="no-highlight">383</i>&nbsp;          ���� ��-��������
+<i class="no-highlight">384</i>&nbsp;          &lt;ul&gt;
+<i class="no-highlight">385</i>&nbsp;            &lt;li&gt;����&lt;/li&gt;
+<i class="no-highlight">386</i>&nbsp;            &lt;li&gt;����&lt;/li&gt;
+<i class="no-highlight">387</i>&nbsp;          &lt;/ul&gt;
+<i class="no-highlight">388</i>&nbsp;        &lt;/li&gt;
+<i class="no-highlight">389</i>&nbsp;        &lt;li&gt;
+<i class="no-highlight">390</i>&nbsp;          ����� ������
+<i class="no-highlight">391</i>&nbsp;          &lt;ol&gt;
+<i class="no-highlight">392</i>&nbsp;            &lt;li&gt;����
+<i class="no-highlight">393</i>&nbsp;              &lt;ul&gt;
+<i class="no-highlight">394</i>&nbsp;                &lt;li&gt;��� �������&lt;/li&gt;
+<i class="no-highlight">395</i>&nbsp;              &lt;/ul&gt;
+<i class="no-highlight">396</i>&nbsp;            &lt;/li&gt;
+<i class="no-highlight">397</i>&nbsp;            &lt;li&gt;�������&lt;/li&gt;
+<i class="no-highlight">398</i>&nbsp;            &lt;li&gt;���������&lt;/li&gt;
+<i class="no-highlight">399</i>&nbsp;            &lt;li&gt;���-�� ��� ���&lt;/li&gt;
+<i class="no-highlight">400</i>&nbsp;          &lt;/ol&gt;
+<i class="no-highlight">401</i>&nbsp;        &lt;/li&gt;
+<i class="no-highlight">402</i>&nbsp;        &lt;li&gt;��������&lt;/li&gt;
+<i class="no-highlight">403</i>&nbsp;        &lt;li&gt;������
+<i class="no-highlight">404</i>&nbsp;          &lt;ol&gt;
+<i class="no-highlight">405</i>&nbsp;            &lt;li&gt;������&lt;/li&gt;
+<i class="no-highlight">406</i>&nbsp;            &lt;li&gt;������
+<i class="no-highlight">407</i>&nbsp;              &lt;ol&gt;
+<i class="no-highlight">408</i>&nbsp;                &lt;li&gt;�������&lt;/li&gt;
+<i class="no-highlight">409</i>&nbsp;                &lt;li&gt;������&lt;/li&gt;
+<i class="no-highlight">410</i>&nbsp;              &lt;/ol&gt;
+<i class="no-highlight">411</i>&nbsp;            &lt;/li&gt;
+<i class="no-highlight">412</i>&nbsp;          &lt;/ol&gt;
+<i class="no-highlight">413</i>&nbsp;        &lt;/li&gt;
+<i class="no-highlight">414</i>&nbsp;      &lt;/ul&gt;
+<i class="no-highlight">415</i>&nbsp;    &lt;/p&gt;
+<i class="no-highlight">416</i>&nbsp;  &lt;/body&gt;
+<i class="no-highlight">417</i>&nbsp;&lt;/html&gt;
+<i class="no-highlight">418</i>&nbsp;///////////////////////////////����� �����//////////////////////////////////////////////////////////////////////////////
+<i class="no-highlight">419</i>&nbsp; * (������� � �������� ����� � ������� ��������� ��� �����������, ��� ������� ������ �� ������������� �� �����������)
+<i class="no-highlight">420</i>&nbsp; */
+<i class="no-highlight">421</i>&nbsp;fun markdownToHtmlLists(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">422</i>&nbsp;    TODO()</b>
+<i class="no-highlight">423</i>&nbsp;}
+<i class="no-highlight">424</i>&nbsp;
+<i class="no-highlight">425</i>&nbsp;/**
+<i class="no-highlight">426</i>&nbsp; * ����� ������� (30 ������)
+<i class="no-highlight">427</i>&nbsp; *
+<i class="no-highlight">428</i>&nbsp; * ����������� �������������� �� ���� ���������� ����� ������������ ��� ����� � ��� �� ������.
+<i class="no-highlight">429</i>&nbsp; * ������� �������, ���:
+<i class="no-highlight">430</i>&nbsp; * - ������, ��������� ���� �� ����� ������ �������, �������� ������� � ������ ��������� � ������ ���������� ��������� �����.
+<i class="no-highlight">431</i>&nbsp; *
+<i class="no-highlight">432</i>&nbsp; */
+<i class="no-highlight">433</i>&nbsp;fun markdownToHtml(inputName: String, outputName: String) {
+<b class="nc"><i class="no-highlight">434</i>&nbsp;    TODO()</b>
+<i class="no-highlight">435</i>&nbsp;}
+<i class="no-highlight">436</i>&nbsp;
+<i class="no-highlight">437</i>&nbsp;/**
+<i class="no-highlight">438</i>&nbsp; * ������� (12 ������)
+<i class="no-highlight">439</i>&nbsp; *
+<i class="no-highlight">440</i>&nbsp; * ������� � �������� ���� ������� ��������� ��������� ����� lhv (&gt; 0) �� ����� rhv (&gt; 0).
+<i class="no-highlight">441</i>&nbsp; *
+<i class="no-highlight">442</i>&nbsp; * ������ (��� lhv == 19935, rhv == 111):
+<i class="no-highlight">443</i>&nbsp;   19935
+<i class="no-highlight">444</i>&nbsp;*    111
+<i class="no-highlight">445</i>&nbsp;--------
+<i class="no-highlight">446</i>&nbsp;   19935
+<i class="no-highlight">447</i>&nbsp;+ 19935
+<i class="no-highlight">448</i>&nbsp;+19935
+<i class="no-highlight">449</i>&nbsp;--------
+<i class="no-highlight">450</i>&nbsp; 2212785
+<i class="no-highlight">451</i>&nbsp; * ������������ �������, ������� � ������ ������ � �������� ��������������� �������.
+<i class="no-highlight">452</i>&nbsp; * ���� � ��������� ������������ ��� ��, ��� � ��������� �����:
+<i class="no-highlight">453</i>&nbsp;  235
+<i class="no-highlight">454</i>&nbsp;*  10
+<i class="no-highlight">455</i>&nbsp;-----
+<i class="no-highlight">456</i>&nbsp;    0
+<i class="no-highlight">457</i>&nbsp;+235
+<i class="no-highlight">458</i>&nbsp;-----
+<i class="no-highlight">459</i>&nbsp; 2350
+<i class="no-highlight">460</i>&nbsp; *
+<i class="no-highlight">461</i>&nbsp; */
+<i class="no-highlight">462</i>&nbsp;fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
+<b class="fc"><i class="no-highlight">463</i>&nbsp;    File(outputName).bufferedWriter().use { file -&gt;</b>
+<i class="no-highlight">464</i>&nbsp;        //val len = lhv.toString().length + rhv.toString().length
+<b class="fc"><i class="no-highlight">465</i>&nbsp;        val len = (lhv * rhv).toString().length + 1</b>
+<b class="fc"><i class="no-highlight">466</i>&nbsp;        file.write(String.format(&quot;%${len}d\n*%${len - 1}d\n&quot;, lhv, rhv))</b>
+<b class="fc"><i class="no-highlight">467</i>&nbsp;        for (i in 1..len) file.write(&quot;-&quot;)</b>
+<b class="fc"><i class="no-highlight">468</i>&nbsp;        file.write(String.format(&quot;\n%${len}d\n&quot;, lhv * (rhv % 10)))</b>
+<b class="fc"><i class="no-highlight">469</i>&nbsp;        if (rhv / 10 != 0) {</b>
+<b class="fc"><i class="no-highlight">470</i>&nbsp;            for ((index, num) in (rhv / 10).toString().reversed().withIndex()) {</b>
+<b class="fc"><i class="no-highlight">471</i>&nbsp;                file.write(String.format(&quot;+%${len - index - 2}d\n&quot;, (lhv * num.toString().toInt())))</b>
+<i class="no-highlight">472</i>&nbsp;            }
+<i class="no-highlight">473</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">474</i>&nbsp;        for (i in 1..len) file.write(&quot;-&quot;)</b>
+<b class="fc"><i class="no-highlight">475</i>&nbsp;        file.write(String.format(&quot;\n%${len}d&quot;, lhv * rhv))</b>
+<b class="fc"><i class="no-highlight">476</i>&nbsp;    }</b>
+<i class="no-highlight">477</i>&nbsp;}
+<i class="no-highlight">478</i>&nbsp;
+<i class="no-highlight">479</i>&nbsp;
+<i class="no-highlight">480</i>&nbsp;/**
+<i class="no-highlight">481</i>&nbsp; * ������� (25 ������)
+<i class="no-highlight">482</i>&nbsp; *
+<i class="no-highlight">483</i>&nbsp; * ������� � �������� ���� ������� ������� ��������� ����� lhv (&gt; 0) �� ����� rhv (&gt; 0).
+<i class="no-highlight">484</i>&nbsp; *
+<i class="no-highlight">485</i>&nbsp; * ������ (��� lhv == 19935, rhv == 22):
+<i class="no-highlight">486</i>&nbsp;  19935 | 22
+<i class="no-highlight">487</i>&nbsp; -198     906
+<i class="no-highlight">488</i>&nbsp; ----
+<i class="no-highlight">489</i>&nbsp;    13
+<i class="no-highlight">490</i>&nbsp;    -0
+<i class="no-highlight">491</i>&nbsp;    --
+<i class="no-highlight">492</i>&nbsp;    135
+<i class="no-highlight">493</i>&nbsp;   -132
+<i class="no-highlight">494</i>&nbsp;   ----
+<i class="no-highlight">495</i>&nbsp;      3
+<i class="no-highlight">496</i>&nbsp;
+<i class="no-highlight">497</i>&nbsp; * ������������ �������, ������� � ������ ������ � �������� ��������������� �������.
+<i class="no-highlight">498</i>&nbsp; *
+<i class="no-highlight">499</i>&nbsp; */
+<b class="nc"><i class="no-highlight">500</i>&nbsp;fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String): Nothing = TODO()/*{</b>
+<i class="no-highlight">501</i>&nbsp;    File(outputName).bufferedWriter().use { file -&gt;
+<i class="no-highlight">502</i>&nbsp;        val lStr = lhv.toString()
+<i class="no-highlight">503</i>&nbsp;        val lLen = lStr.length
+<i class="no-highlight">504</i>&nbsp;        val res = digits(lhv / rhv)
+<i class="no-highlight">505</i>&nbsp;        var loc = rhv * res[0]
+<i class="no-highlight">506</i>&nbsp;        if (lhv &lt; rhv &amp;&amp; lhv !in 0..9) {
+<i class="no-highlight">507</i>&nbsp;            file.write(&quot;$lhv | $rhv\n&quot;)
+<i class="no-highlight">508</i>&nbsp;            file.write(String.format(&quot;%${lLen}s   ${lhv / rhv}\n&quot;, &quot;-$loc&quot;))
+<i class="no-highlight">509</i>&nbsp;            file.write(&quot;${genString(&quot;-&quot;, lLen - 1)}\n$lhv&quot;)
+<i class="no-highlight">510</i>&nbsp;        } else {
+<i class="no-highlight">511</i>&nbsp;            file.write(&quot; $lhv | $rhv\n&quot;)
+<i class="no-highlight">512</i>&nbsp;            file.write(String.format(&quot;-%-${lLen}d   ${lhv / rhv}\n&quot;, loc))
+<i class="no-highlight">513</i>&nbsp;            for (i in &quot;-$loc&quot;) file.write(&quot;-&quot;)
+<i class="no-highlight">514</i>&nbsp;            file.write(
+<i class="no-highlight">515</i>&nbsp;                String.format(
+<i class="no-highlight">516</i>&nbsp;                    &quot;\n%${(&#39;-&#39; + (loc).toString()).length}d&quot;,
+<i class="no-highlight">517</i>&nbsp;                    lStr.substring(0, (loc).toString().length).toInt() - loc
+<i class="no-highlight">518</i>&nbsp;                )
+<i class="no-highlight">519</i>&nbsp;            )
+<i class="no-highlight">520</i>&nbsp;            for ((index, num) in res.withIndex()) {
+<i class="no-highlight">521</i>&nbsp;                if (index == 0) continue
+<i class="no-highlight">522</i>&nbsp;                val locLen = (loc).toString().length
+<i class="no-highlight">523</i>&nbsp;                val locRem = (lStr.substring(0, locLen + 1).toInt() - loc * 10).toString()
+<i class="no-highlight">524</i>&nbsp;                file.write(&quot;${lStr[locLen]}\n&quot;)
+<i class="no-highlight">525</i>&nbsp;                file.write(String.format(&quot;%${locLen + 2}s\n&quot;, &quot;-&quot; + rhv * num))
+<i class="no-highlight">526</i>&nbsp;                val line = genString(&quot;-&quot;, maxOf(locRem.lastIndex, (&quot;-&quot; + rhv * num).lastIndex))
+<i class="no-highlight">527</i>&nbsp;                file.write(String.format(&quot;%${locLen + 2}s\n&quot;, line))
+<i class="no-highlight">528</i>&nbsp;                file.write(String.format(&quot;%${locLen + 2}s&quot;, locRem.toInt() - rhv * num))
+<i class="no-highlight">529</i>&nbsp;                loc = loc * 10 + rhv * num
+<i class="no-highlight">530</i>&nbsp;            }
+<i class="no-highlight">531</i>&nbsp;        }
+<i class="no-highlight">532</i>&nbsp;    }
+<i class="no-highlight">533</i>&nbsp;}*/
+<i class="no-highlight">534</i>&nbsp;
+<i class="no-highlight">535</i>&nbsp;fun genString(pat: String, len: Int): String {
+<b class="nc"><i class="no-highlight">536</i>&nbsp;    var str = &quot;&quot;</b>
+<b class="nc"><i class="no-highlight">537</i>&nbsp;    for (i in 0..len) {</b>
+<b class="nc"><i class="no-highlight">538</i>&nbsp;        str += pat</b>
+<i class="no-highlight">539</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">540</i>&nbsp;    return str</b>
+<i class="no-highlight">541</i>&nbsp;}
+<i class="no-highlight">542</i>&nbsp;
+<i class="no-highlight">543</i>&nbsp;fun digits(num: Int): List&lt;Int&gt; {
+<b class="nc"><i class="no-highlight">544</i>&nbsp;    val list = mutableListOf&lt;Int&gt;()</b>
+<b class="nc"><i class="no-highlight">545</i>&nbsp;    var loc = num</b>
+<i class="no-highlight">546</i>&nbsp;    do {
+<b class="nc"><i class="no-highlight">547</i>&nbsp;        list += loc % 10</b>
+<b class="nc"><i class="no-highlight">548</i>&nbsp;        loc /= 10</b>
+<b class="nc"><i class="no-highlight">549</i>&nbsp;    } while (loc != 0)</b>
+<b class="nc"><i class="no-highlight">550</i>&nbsp;    return list.reversed()</b>
+<i class="no-highlight">551</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+
+</script>
+
+<div class="footer">
+
+    <div style="float:right;">generated on 2022-04-04 23:44</div>
+</div>
+</body>
+</html>
